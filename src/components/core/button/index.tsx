@@ -5,7 +5,7 @@ import { cn } from '@/utils/cn';
 import DotLoader from '../loader/dot-loader';
 
 export interface ButtonProps {
-    tag?: 'a' | 'button';
+    tag?: 'a' | 'button' | 'div';
     text?: string;
     type?: "button" | "submit" | "reset";
     href?: string;
@@ -68,6 +68,18 @@ const Button = forwardRef<
             )}
         </>
     );
+
+    if(tag === 'div') {
+        return (
+            <div
+                className={classes} 
+                ref={ref as React.Ref<HTMLDivElement>}
+                {...props}
+            >
+                {content}
+            </div>
+        );
+    }
 
     if (isLink) {
         return (

@@ -47,8 +47,8 @@ const Footer = async () => {
                             {
                                 data.data.legalCard.map((item: any, index: number) =>
                                     item.link && item.title &&
-                                    <li className='ui-footer__link-item'>
-                                        <Link key={index} href={item.link} className='ui-footer__link' target={item.target || '_self'}>{item.title}</Link>
+                                    <li className='ui-footer__link-item' key={index} >
+                                        <Link href={item.link} className='ui-footer__link' target={item.target || '_self'}>{item.title}</Link>
                                     </li>
                                 )
                             }
