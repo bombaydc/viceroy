@@ -1,0 +1,85 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.sample-callout-alert {
+	//size - LIKELY TO CHANGE
+	max-width: 490px;
+
+	//inner
+	.core-callout-alert__inner {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+		align-items: flex-start;
+
+		//spacing - LIKELY TO CHANGE
+		padding-block: var(--space-2xs);
+		padding-inline: var(--space-2xs) var(--space-m);
+		gap: var(--space-s);
+
+		//visual - LIKELY TO CHANGE
+		background: #fff9e3;
+	}
+	//message container
+	.core-callout-alert__message-container {
+		//layout - UNLIKELY TO CHANGE
+		flex: 1;
+		display: flex;
+
+		//spacing - LIKELY TO CHANGE
+		gap: var(--space-nano);
+	}
+	//icon
+	.core-callout-alert__icon {
+		//layout - UNLIKELY TO CHANGE
+		flex-shrink: 0;
+
+		//size - LIKELY TO CHANGE
+		width: 24px;
+		height: 24px;
+	}
+	//message wrapper
+	.core-callout-alert__message-wrapper {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		//spacing - LIKELY TO CHANGE
+		gap: var(--space-3xs);
+	}
+	//message
+	.core-callout-alert__message {
+		//visual - LIKELY TO CHANGE
+		color: #212121;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px;
+		letter-spacing: -0.42px;
+	}
+	//action btn
+	.core-callout-alert__action-btn {
+		//visual - LIKELY TO CHANGE
+		color: #305ad4;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 16px;
+		letter-spacing: -0.36px;
+		text-align: center;
+	}
+}

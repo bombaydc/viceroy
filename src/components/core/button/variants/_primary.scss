@@ -1,0 +1,120 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+@use 'sass:map';
+
+//root variables - CHANGEME
+$standard-primary-btn-vars: (
+  default: (
+    //size
+    MIN-INLINE-SIZE: 120px,
+    BLOCK-SIZE: 44px,
+    ICON-SIZE: 18px,
+    //spacing
+    PADDING-INLINE: var(--space-xs),
+    TEXT-ICON-GAP: var(--space-macro),
+    //visual (colors, backgrounds, borders, overflows)
+    BG-DISABLED-COLOR: #9ea1ad,
+    BG-DEFAULT-COLOR: #305ad4,
+    BG-HOVER-COLOR: #284fc3,
+    //typography
+    TEXT-DEFAULT-COLOR: white,
+    TEXT-HOVER-COLOR: white,
+    TEXT-DISABLED-COLOR: white,
+  ),
+  mobile: (
+    //size
+    BG-HOVER-COLOR: #2446ae,
+  ),
+);
+//state mixin
+@mixin standard-primary-btn-state($state) {
+  @if $state == hover {
+    background-color: var(--STANDARD-PRIMARY-BTN-BG-HOVER-COLOR);
+  } @else if $state == disabled {
+    background-color: var(--STANDARD-PRIMARY-BTN-BG-DISABLED-COLOR);
+    pointer-events: none;
+    .core-button__text {
+      color: var(--STANDARD-PRIMARY-BTN-TEXT-DISABLED-COLOR);
+    }
+  } @else if $state == loading {
+    pointer-events: none;
+    .core-dot-loader {
+      visibility: visible;
+    }
+    .core-button__icon,
+    .core-button__text {
+      visibility: hidden;
+    }
+  }
+}
+//component styles
+.core-button.core-button--primary {
+  //variables - unlikely-to-change
+  @include define-prefixed-root-variables(
+    'STANDARD-PRIMARY-BTN',
+    map.get($standard-primary-btn-vars, default)
+  );
+  @include media('<md') {
+    @include define-prefixed-root-variables(
+      'STANDARD-PRIMARY-BTN',
+      map.get($standard-primary-btn-vars, mobile)
+    );
+  }
+
+  //layout - UNLIKELY TO CHANGE
+  position: relative;
+  @include flex-centered;
+
+  //size - UNLIKELY TO CHANGE
+  min-inline-size: var(--STANDARD-PRIMARY-BTN-MIN-INLINE-SIZE);
+  block-size: var(--STANDARD-PRIMARY-BTN-BLOCK-SIZE);
+
+  //spacing - LIKELY TO CHANGE
+  padding-inline: var(--STANDARD-PRIMARY-BTN-PADDING-INLINE);
+  gap: var(--STANDARD-PRIMARY-BTN-TEXT-ICON-GAP);
+
+  //visual (colors, backgrounds, borders, overflows) - CHANGEME
+  border-radius: var(--radius-1000);
+  background-color: var(--STANDARD-PRIMARY-BTN-BG-DEFAULT-COLOR);
+  color: var(--STANDARD-PRIMARY-BTN-TEXT-DEFAULT-COLOR);
+
+  //motion - UNLIKELY TO CHANGE
+  transition-property: background-color;
+  @include motion.button-hover-transition() {
+    @include standard-primary-btn-state(hover);
+  }
+  //states - UNLIKELY TO CHANGE
+  &[disabled],
+  &.is-disabled {
+    @include standard-primary-btn-state(disabled);
+  }
+  //loader
+  .core-dot-loader {
+    --CORE-DOT-LOADER-DOT-COLOR: white;
+    visibility: hidden;
+  }
+  &.core-button--loading {
+    @include standard-primary-btn-state(loading);
+  }
+
+  .core-button {
+    //icon
+    &__icon {
+      //size - UNLIKELY TO CHANGE
+      inline-size: var(--STANDARD-PRIMARY-BTN-ICON-SIZE);
+      block-size: var(--STANDARD-PRIMARY-BTN-ICON-SIZE);
+    }
+    //text
+    &__text {
+      //visual (colors, backgrounds, borders, overflows) - CHANGEME
+
+      //typography - CHANGEME
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: -0.42px;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@use "@scss-motion-abstracts" as motion;
+:root {
+	/* hover */
+	--hover-duration: var(--duration-100);
+	--hover-easing: var(--standard);
+	/* popover */
+	--popover-entry-duration: var(--duration-400);
+	--popover-entry-easing: var(--emphasized-decelerate);
+	--popover-exit-duration: 0ms;
+	--popover-exit-easing: linear;
+	/* modal */
+	--modal-entry-duration: var(--duration-400);
+	--modal-entry-easing: var(--emphasized-decelerate);
+	--modal-exit-duration: 0ms;
+	--modal-exit-easing: linear;
+	/* alert */
+	--alert-entry-duration: var(--duration-200);
+	--alert-entry-easing: var(--emphasized-decelerate);
+	--alert-exit-duration: var(--duration-100);
+	--alert-exit-easing: var(--standard);
+}

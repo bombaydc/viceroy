@@ -1,0 +1,122 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+@use 'sass:map';
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+//root variables - UNLIKELY TO CHANGE
+$standard-tertiary-link-vars: (
+	default: (
+		//motion
+		ICON-ANIMATION-DURATION: var(--duration-300),
+		ICON-ANIMATION-EASING: var(--standard-decelerate),
+	),
+	mobile: (),
+);
+@keyframes standard-tertiary-link-hover-keyframes {
+	0% {
+		transform: none;
+		opacity: 1;
+	}
+
+	50% {
+		transform: translate(6px, -6px);
+		opacity: 0;
+	}
+
+	51% {
+		transform: translate(-10px, 10px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: none;
+		opacity: 1;
+	}
+}
+@mixin standard-tertiary-link-state($state) {
+	@if $state == "hover" {
+		.core-button__icon {
+			animation-name: standard-tertiary-link-hover-keyframes;
+		}
+	}
+}
+.core-button--tertiary {
+	&.core-button {
+		//variables - UNLIKELY TO CHANGE
+		@include define-prefixed-root-variables("EXPRESSIVE-TERTIARY-LINK", map.get($standard-tertiary-link-vars, default));
+		@include media("<md") {
+			@include define-prefixed-root-variables("EXPRESSIVE-TERTIARY-LINK", map.get($standard-tertiary-link-vars, mobile));
+		}
+
+		//layout - UNLIKELY TO CHANGE
+		display: inline-flex;
+		align-items: flex-start;
+		gap: var(--space-macro);
+
+		//motion - UNLIKELY TO CHANGE
+		@include motion.button-hover-custom-transition() {
+			@include standard-tertiary-link-state(hover);
+		}
+	}
+
+	.core-button__text {
+		//layout - UNLIKELY TO CHANGE
+		position: relative;
+
+		//typography - UNLIKELY TO CHANGE
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 20px;
+		letter-spacing: -0.42px;
+		white-space: nowrap;
+		text-align: center;
+
+		//visual (colors, backgrounds, borders, overflows) - UNLIKELY TO CHANGE
+		color: var(--Button-Default-Primary, #305ad4);
+
+		//underline
+		&::after {
+			//layout - UNLIKELY TO CHANGE
+			display: block;
+			position: absolute;
+			inset-block-end: 0;
+			inset-inline-start: 0;
+
+			//size - UNLIKELY TO CHANGE
+			inline-size: 100%;
+			block-size: 1px;
+
+			//visual (colors, backgrounds, borders, overflows) - UNLIKELY TO CHANGE
+			content: "";
+			background-color: currentColor;
+		}
+	}
+
+	.core-button__icon {
+		//layout - UNLIKELY TO CHANGE
+		position: relative;
+
+		//size - UNLIKELY TO CHANGE
+		inline-size: var(--size-2xs);
+		block-size: var(--size-2xs);
+
+		//spacing - UNLIKELY TO CHANGE
+		inset-block-start: 2px;
+
+		//motion - UNLIKELY TO CHANGE
+		animation-duration: var(--EXPRESSIVE-TERTIARY-LINK-ICON-ANIMATION-DURATION);
+		animation-timing-function: var(--EXPRESSIVE-TERTIARY-LINK-ICON-ANIMATION-EASING);
+		animation-fill-mode: forwards;
+	}
+}

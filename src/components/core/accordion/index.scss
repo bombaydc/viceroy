@@ -1,0 +1,138 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+@use 'sass:map';
+@use './implementations/sample'; 
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-accordion-item-vars: (
+  default: (
+    //visual - LIKELY TO CHANGE
+    BG-HOVER-COLOR: #ededed,
+    ARROW-PATH-HOVER-COLOR: #212121,
+    //motion - UNLIKELY TO CHANGE
+    EXPAND-DURATION: var(--duration-200),
+    EXPAND-EASING: var(--standard-decelerate),
+    COLLAPSE-DURATION: var(--duration-100),
+    COLLAPSE-EASING: var(--standard),
+    CHEVRON-ROTATION-DURATION: var(--duration-200),
+    CHEVRON-ROTATION-EASING: var(--standard-decelerate),
+  ),
+);
+//accordion item
+.core-accordion-item {
+  @include define-prefixed-root-variables(
+    'CORE-ACCORDION-ITEM',
+    map.get($core-accordion-item-vars, default)
+  );
+  //layout - UNLIKELY TO CHANGE
+  display: block;
+  //item content
+  .core-accordion-item__content-outer {
+    //layout - UNLIKELY TO CHANGE
+    display: grid;
+    transition-property: grid-template-rows;
+  }
+  .core-accordion-item__content {
+    // Visual (colors, backgrounds, borders, overflows) - UNLIKELY TO CHANGE
+    overflow: hidden;
+  }
+  //item button
+  .core-accordion-item__btn {
+    //layout - UNLIKELY TO CHANGE
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+    //hover bg
+    &::before {
+      //layout - UNLIKELY TO CHANGE
+      position: absolute;
+      z-index: -1;
+
+      //size - UNLIKELY TO CHANGE 
+      block-size: 100%;
+      inline-size: 100%;
+
+      //spacing - UNLIKELY TO CHANGE 
+      inset-block-start: 0; 
+
+      //visual - UNLIKELY TO CHANGE
+      content: '';
+      background-color: transparent;
+
+      //motion - UNLIKELY TO CHANGE
+      transition-property: background-color;
+    }
+    //motion - LIKELY TO CHANGE
+    @include motion.button-hover-transition('.core-accordion-item__btn-icon-arrow-path') {
+      //visual - LIKELY TO CHANGE
+      &::before {
+        background-color: var(--CORE-ACCORDION-ITEM-BG-HOVER-COLOR);
+      }
+      .core-accordion-item__btn-icon-arrow-path {
+        //visual - LIKELY TO CHANGE
+        fill: var(--CORE-ACCORDION-ITEM-ARROW-PATH-HOVER-COLOR);
+      }
+    }
+  }
+  //item button icon
+  .core-accordion-item__btn-icon--chevron {
+    //motion - UNLIKELY TO CHANGE
+    transform-origin: center;
+    transition-property: transform;
+    transition-duration: var(--CORE-ACCORDION-ITEM-CHEVRON-ROTATION-DURATION);
+    transition-timing-function: var(--CORE-ACCORDION-ITEM-CHEVRON-ROTATION-EASING);
+  }
+}
+//open state
+.core-accordion-item__btn[aria-expanded='true'] {
+  .core-accordion-item__btn-icon--chevron {
+    //motion - UNLIKELY TO CHANGE
+    transform: rotateX(-180deg);
+  }
+  .core-accordion-item__btn-icon-plus {
+    //layout - UNLIKELY TO CHANGE
+    display: none;
+  }
+  & + .core-accordion-item__content-outer {
+    //layout - UNLIKELY TO CHANGE
+    grid-template-rows: 1fr;
+
+    //motion - UNLIKELY TO CHANGE
+    transition-duration: var(--CORE-ACCORDION-ITEM-EXPAND-DURATION);
+    transition-timing-function: var(--CORE-ACCORDION-ITEM-EXPAND-EASING);
+  }
+  // Modifier: --no-motion
+  &.core-accordion-item--no-motion {
+    .core-accordion-item__content-outer {
+      transition: none;
+    }
+  }
+}
+//closed state
+.core-accordion-item__btn:not([aria-expanded='true']) {
+  & + .core-accordion-item__content-outer {
+    //layout - UNLIKELY TO CHANGE
+    grid-template-rows: 0fr;
+    //motion - UNLIKELY TO CHANGE
+    transition-duration: var(--CORE-ACCORDION-ITEM-COLLAPSE-DURATION);
+    transition-timing-function: var(--CORE-ACCORDION-ITEM-COLLAPSE-EASING);
+  }
+  // modifier: --close-instantly-on-click
+  &.core-accordion-item--close-instantly-on-click {
+    .core-accordion-item__content-outer {
+      transition-duration: 0ms;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use "sass:list";
+
+/* z-index management function */
+
+$zIndices: ("highest", "skip-to-content", "alert", "modal-sticky-menu", "modal-sticky-title", "modal", "header", "secondary-menu", "tertiary-menu", "jumpto-menu", "dropdown", "modal-dimmer", "sticky-menu", "maxwidth-slider-strip", "share-popover", "lowest");
+@function z($name) {
+	@if  list.index($zIndices, $name) {
+		@return ( list.length($zIndices) - list.index($zIndices, $name)) + 50;
+	} @else {
+		@warn 'There is no item "#{$name}" in this list; Choose one of: #{$zIndices}';
+		@return null;
+	}
+}

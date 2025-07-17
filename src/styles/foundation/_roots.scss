@@ -1,0 +1,16 @@
+@use "@scss-abstracts" as *;
+
+:root {
+	--w-viewport: 100vw;
+	--h-viewport: 100vh;
+	--w-max: 1600px;
+	--h-header: 88px; 
+	--h-stickyMenu: 63px;
+}
+@include media("<md") {
+	:root {
+		--w-max: 100%;
+		--h-header: 80px; 
+	}
+}
+ 

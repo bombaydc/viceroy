@@ -1,0 +1,11 @@
+@use "./duration-map";
+@use "./easing-map";
+@use 'sass:map';
+
+//Define mixin for transitions
+@mixin transition($duration-key, $easing-key) {
+	$duration: map.get(duration-map.$durations, $duration-key);
+	$easing: map.get(easing-map.$easings, $easing-key);
+	transition-duration: $duration;
+	transition-timing-function: $easing;
+}

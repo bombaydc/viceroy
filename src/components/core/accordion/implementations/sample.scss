@@ -1,0 +1,73 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+//item
+.sample-standard-accordion {
+	//item
+	.core-accordion-item {
+		//visual - LIKELY TO CHANGE
+		border-block: 1px solid var(--c-line-seperator);
+		& + .core-accordion-item {
+			border-block-start: 0;
+		}
+	}
+	//item button
+	.core-accordion-item__btn {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+		justify-content: space-between;
+
+		//size - UNLIKELY TO CHANGE
+		width: 100%;
+
+		//spacing - LIKELY TO CHANGE
+		gap: var(--space-m);
+		padding-block: var(--space-2xs);
+
+		&-text {
+			//visual - LIKELY TO CHANGE
+			color: #333;
+
+			//typography - LIKELY TO CHANGE
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 400;
+			line-height: 20px;
+			letter-spacing: -0.42px;
+			text-align: left;
+		}
+	}
+	//item content inner
+	.core-accordion-item__content-inner {
+		//size - UNLIKELY TO CHANGE
+		width: var(--w-text-content);
+
+		//spacing - LIKELY TO CHANGE
+		padding-block-end: var(--space-2xs);
+
+		//visual - LIKELY TO CHANGE
+		color: #6b6b80;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px;
+		letter-spacing: -0.42px;
+	}
+	//item arrow path
+	.core-accordion-item__btn-icon-arrow-path {
+		//visual - LIKELY TO CHANGE
+		fill: #6b6b80;
+	}
+}

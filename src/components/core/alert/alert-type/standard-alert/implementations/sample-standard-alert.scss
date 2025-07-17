@@ -1,0 +1,75 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.sample-standard-alert {
+	//inner
+	.core-standard-alert__inner {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		@include media("<md") {
+			align-items: flex-start;
+		}
+
+		//size - UNLIKELY TO CHANGE
+		width: 100%;
+
+		//spacing - LIKELY TO CHANGE
+		padding: var(--space-2xs) var(--grid-column-gap);
+		gap: var(--space-l);
+
+		//visual - LIKELY TO CHANGE
+		background: #fff4f4;
+		box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.1);
+	}
+	//message container
+	.core-standard-alert__message-container {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4xs);
+		@include media("<md") {
+			align-items: flex-start;
+		}
+	}
+	//text
+	.core-standard-alert__message {
+		color: #6b6b80;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px;
+		letter-spacing: -0.42px;
+		a {
+			color: #212121;
+			text-decoration: underline;
+		}
+	}
+	//close-btn
+	.core-standard-alert__close-btn {
+		//layout - UNLIKELY TO CHANGE
+		flex-shrink: 0;
+		@include flex-centered;
+
+		//size - LIKELY TO CHANGE
+		@include circle(32px);
+
+		//visual - LIKELY TO CHANGE
+		border: 1px solid #e1e1e3;
+		background: white;
+		&-icon {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}

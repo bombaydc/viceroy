@@ -1,0 +1,75 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+@use 'sass:map'; 
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-input-field-vars: (
+  default: (
+    MIN-HEIGHT: 54px,
+    //visual - LIKELY TO CHANGE
+    TEXT-COLOR: #212121,
+    PLACEHOLDER-COLOR: #ededed,
+    BORDER-COLOR: #ededed,
+    FOCUS-BORDER-COLOR: #212121,
+    INVALID-COLOR: #ab0000,
+    //motion - UNLIKELY TO CHANGE
+    INPUT-TRANSITION-DURATION: var(--duration-200),
+    INPUT-TRANSITION-EASING: var(--standard-decelerate),
+    INPUT-TRANSITION-DELAY: var(--duration-0),
+  ),
+);
+
+.core-input-field {
+  @include define-prefixed-root-variables(
+    'CORE-INPUT-FIELD',
+    map.get($core-input-field-vars, default)
+  );
+  display: flex;
+  flex-direction: column;
+
+  &__input {
+    border: 1px solid var(--CORE-INPUT-FIELD-BORDER-COLOR);
+    min-block-size: var(--CORE-INPUT-FIELD-MIN-HEIGHT);
+    padding: var(--space-3xs) var(--space-2xs);
+    font-size: 16px;
+    &:focus {
+      border-color: var(--CORE-INPUT-FIELD-FOCUS-BORDER-COLOR);
+    }
+
+    &:placeholder-shown {
+      font-size: 16px;
+      color: var(--CORE-INPUT-FIELD-PLACEHOLDER-COLOR);
+    }
+    &[aria-invalid='true'],
+    &--error {
+      border-color: var(--CORE-INPUT-FIELD-INVALID-COLOR);
+    }
+  }
+  &__label {
+    margin-block-end: var(--space-4xs);
+  }
+
+  &__helper {
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--CORE-INPUT-FIELD-PLACEHOLDER-COLOR);
+    margin-block-start: var(--space-nano);
+    padding-top: var(--space-5xs); 
+  }
+  &__error {
+    font-size: 14px;
+    line-height: 1.2;
+    margin-block-start: var(--space-nano);
+    padding-top: var(--space-5xs);
+    color: var(--CORE-INPUT-FIELD-INVALID-COLOR);
+  }
+}

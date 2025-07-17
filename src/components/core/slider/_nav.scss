@@ -1,0 +1,137 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+@use 'sass:map';
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-card-slider-nav-vars: (
+	default: (
+		//motion - UNLIKELY TO CHANGE
+		btn-motion-duration: var(--duration-300),
+		btn-motion-easing: var(--standard-decelerate),
+	),
+);
+/* keyframes */
+@keyframes core-card-slider__prev-nav-btn-hover-keyframes {
+	0% {
+		transform: none;
+		opacity: 1;
+	}
+	50% {
+		transform: translateX(-6px);
+		opacity: 0;
+	}
+	51% {
+		transform: translateX(10px);
+		opacity: 0;
+	}
+	100% {
+		transform: none;
+		opacity: 1;
+	}
+}
+@keyframes core-card-slider__next-nav-btn-hover-keyframes {
+	0% {
+		transform: none;
+		opacity: 1;
+	}
+	50% {
+		transform: translateX(6px);
+		opacity: 0;
+	}
+	51% {
+		transform: translateX(-10px);
+		opacity: 0;
+	}
+	100% {
+		transform: none;
+		opacity: 1;
+	}
+}
+/* mixins */
+@mixin core-card-slider__prev-nav-btn-hover-state {
+	.core-card-slider__nav-btn-icon {
+		animation-name: core-card-slider__prev-nav-btn-hover-keyframes;
+	}
+}
+@mixin core-card-slider__next-nav-btn-hover-state {
+	.core-card-slider__nav-btn-icon {
+		animation-name: core-card-slider__next-nav-btn-hover-keyframes;
+	}
+}
+@mixin core-card-slider__nav-btn-disabled-state {
+	pointer-events: none;
+	.core-card-slider__nav-btn-icon {
+		opacity: 0.4;
+	}
+}
+/* styles */
+.core-card-slider__nav {
+	//layout - UNLIKELY TO CHANGE
+	position: relative;
+	z-index: 1;
+	display: flex;
+
+	//spacing - LIKELY TO CHANGE
+	gap: var(--space-4xs);
+}
+.core-card-slider__nav-btn {
+	//root variables - UNLIKELY TO CHANGE
+	@include define-prefixed-root-variables("core-card-slider-nav", map.get($core-card-slider-nav-vars, default));
+
+	//layout - UNLIKELY TO CHANGE
+	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	//size - UNLIKELY TO CHANGE
+	width: 32px;
+	height: 32px;
+
+	//visual - LIKELY TO CHANGE
+	border-radius: 50%;
+	border: 1px solid #e1e1e3;
+}
+//prev nav btn
+.core-card-slider__nav-btn--prev {
+	@include motion.button-hover-transition() {
+		@include core-card-slider__prev-nav-btn-hover-state;
+	}
+}
+//next nav btn
+.core-card-slider__nav-btn--next {
+	@include motion.button-hover-transition() {
+		@include core-card-slider__next-nav-btn-hover-state;
+	}
+}
+//disabled state
+.core-card-slider__nav-btn[disabled] {
+	@include core-card-slider__nav-btn-disabled-state;
+}
+//nav btn icon
+.core-card-slider__nav-btn-icon {
+	//motion - UNLIKELY TO CHANGE
+	animation-duration: var(--core-card-slider-nav-btn-motion-duration);
+	animation-timing-function: var(--core-card-slider-nav-btn-motion-easing);
+	animation-fill-mode: forwards;
+}
+//for touch devices
+.using-touch {
+	.core-card-slider__nav-btn {
+		touch-action: manipulation; //prevents double-tap zoom
+		-ms-touch-action: manipulation;
+	}
+	.core-card-slider__nav-btn.core-card-slider__nav-btn--pressed-state-blocked {
+		//styles for when the pressed state is blocked
+	}
+}

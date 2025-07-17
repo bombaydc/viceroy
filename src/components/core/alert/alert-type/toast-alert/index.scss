@@ -1,0 +1,83 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+@use './implementations/sample-toast-alert';
+@use 'sass:map';
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-toast-alert-vars: (
+  default: (
+    //entry-motion - UNLIKELY TO CHANGE
+    ENTRY-TRANSFORM-DURATION: var(--duration-250),
+    ENTRY-TRANSFORM-EASING: var(--standard-decelerate),
+    ENTRY-OPACITY-DURATION: var(--duration-150),
+    ENTRY-OPACITY-EASING: var(--standard-decelerate),
+    ENTRY-OPACITY-DELAY: var(--duration-50),
+    //exit-motion - UNLIKELY TO CHANGE
+    EXIT-TRANSFORM-DURATION: var(--duration-200),
+    EXIT-TRANSFORM-EASING: var(--standard),
+    EXIT-OPACITY-DURATION: var(--duration-100),
+    EXIT-OPACITY-EASING: var(--standard),
+    EXIT-OPACITY-DELAY: var(--duration-0),
+  ),
+);
+.core-toast-alert {
+  //root - UNLIKELY TO CHANGE
+  @include define-prefixed-root-variables(
+    'CORE-TOAST-ALERT',
+    map.get($core-toast-alert-vars, default)
+  );
+
+  //layout - UNLIKELY TO CHANGE
+  position: fixed;
+  z-index: z('alert');
+
+  //motion - UNLIKELY TO CHANGE
+  opacity: 0;
+  transform: translateY(10px);
+  transition-property: transform, opacity;
+  transition-duration:
+    var(--CORE-TOAST-ALERT-ENTRY-TRANSFORM-DURATION), var(--CORE-TOAST-ALERT-ENTRY-OPACITY-DURATION);
+  transition-timing-function:
+    var(--CORE-TOAST-ALERT-ENTRY-TRANSFORM-EASING), var(--CORE-TOAST-ALERT-ENTRY-OPACITY-EASING);
+  transition-delay: 0, var(--CORE-TOAST-ALERT-ENTRY-OPACITY-DELAY);
+  pointer-events: none;
+  &[aria-hidden='false'] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition-property: transform, opacity;
+    transition-duration:
+      var(--CORE-TOAST-ALERT-EXIT-TRANSFORM-DURATION), var(--CORE-TOAST-ALERT-EXIT-OPACITY-DURATION);
+    transition-timing-function:
+      var(--CORE-TOAST-ALERT-EXIT-TRANSFORM-EASING), var(--CORE-TOAST-ALERT-EXIT-OPACITY-EASING);
+    transition-delay: 0, var(--CORE-TOAST-ALERT-EXIT-OPACITY-DELAY);
+  }
+
+  // position
+  &--bottom-right {
+    inset-inline-end: 24px;
+    inset-inline-start: unset;
+  }
+  &--top-left {
+    inset-inline-end: unset;
+    inset-inline-start: 24px;
+    inset-block-end: unset;
+    inset-block-start: 24px;
+  }
+  &--top-right {
+    inset-inline-end: 24px;
+    inset-inline-start: unset;
+    inset-block-end: unset;
+    inset-block-start: 24px;
+  }
+}

@@ -1,0 +1,113 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.sample-standard-tab-group {
+	/* tablist container */
+	.core-tab-group__tablist-container::before {
+		//layout - UNLIKELY TO CHANGE
+		position: absolute;
+
+		//spacing - UNLIKELY TO CHANGE
+		inset-block-end: 0;
+		inset-inline-start: 0;
+
+		//size - UNLIKELY TO CHANGE
+		inline-size: 100%;
+		block-size: 1px;
+
+		//visual - LIKELY TO CHANGE
+		content: "";
+		background-color: #e1e1e3;
+	}
+	/* tab */
+	.core-tab-group__tab {
+		//layout - UNLIKELY TO CHANGE
+		position: relative;
+		display: flex;
+		align-items: center;
+
+		//spacing - LIKELY TO CHANGE
+		padding: var(--space-3xs) var(--space-2xs);
+		gap: 8px;
+
+		&::after {
+			//layout - UNLIKELY TO CHANGE
+			position: absolute;
+
+			//spacing - UNLIKELY TO CHANGE
+			inset-block-end: 0;
+			inset-inline-start: 0;
+
+			//size - UNLIKELY TO CHANGE
+			inline-size: 100%;
+			block-size: 2px;
+
+			//visual - UNLIKELY TO CHANGE
+			content: "";
+			background-color: transparent;
+		}
+		@include motion.tab-hover-transition((".sample-standard-tab-group__tab-icon-path", ".sample-standard-tab-group__tab-title")) {
+			&::after {
+				//visual - LIKELY TO CHANGE
+				background-color: #305ad4;
+			}
+			.sample-standard-tab-group__tab-icon-path {
+				fill: #305ad4;
+			}
+			.sample-standard-tab-group__tab-title {
+				//visual - LIKELY TO CHANGE
+				color: #305ad4;
+			}
+		}
+	}
+	&__tab-icon {
+		flex-shrink: 0;
+		width: 20px;
+		height: 20px;
+		&-path {
+			transition-property: fill;
+		}
+	}
+	&__tab-title {
+		//visual - LIKELY TO CHANGE
+		color: #6b6b80;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px; /* 142.857% */
+		letter-spacing: -0.42px;
+
+		//motion - LIKELY TO CHANGE
+		transition-property: color;
+	}
+	&__tabpanel-content {
+		//size - UNLIKELY TO CHANGE
+		width: var(--w-text-content);
+		max-width: 600px;
+
+		//spacing - LIKELY TO CHANGE
+		padding: var(--space-2xs);
+
+		//visual - LIKELY TO CHANGE
+		color: #6b6b80;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px;
+		letter-spacing: -0.513px;
+	}
+}

@@ -1,0 +1,62 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+@use "./implementations/sample-contextual-alert";
+@use 'sass:map';
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-contextual-alert-vars: (
+	default: (
+		//motion - UNLIKELY TO CHANGE
+		EXPAND-DURATION: var(--duration-200),
+		EXPAND-EASING: var(--standard-decelerate),
+		COLLAPSE-DURATION: var(--duration-100),
+		COLLAPSE-EASING: var(--standard),
+	),
+);
+.core-contextual-alert {
+	//root - UNLIKELY TO CHANGE
+	@include define-prefixed-root-variables("CORE-CONTEXTUAL-ALERT", map.get($core-contextual-alert-vars, default));
+
+	//layout - UNLIKELY TO CHANGE
+	display: block;
+
+	//size - UNLIKELY TO CHANGE
+	width: 100%;
+
+	//state - UNLIKELY TO CHANGE
+	&[aria-hidden="false"] {
+		.core-contextual-alert__overflow-content-outer {
+			//layout - UNLIKELY TO CHANGE
+			grid-template-rows: 1fr;
+
+			//motion - UNLIKELY TO CHANGE
+			transition-duration: var(--CORE-CONTEXTUAL-ALERT-EXPAND-DURATION);
+			transition-timing-function: var(--CORE-CONTEXTUAL-ALERT-EXPAND-EASING);
+		}
+	}
+	//overflow content outer
+	&__overflow-content-outer {
+		//layout - UNLIKELY TO CHANGE
+		display: grid;
+		transition-property: grid-template-rows;
+		grid-template-rows: 0fr;
+
+		//motion - UNLIKELY TO CHANGE
+		transition-duration: var(--CORE-CONTEXTUAL-ALERT-COLLAPSE-DURATION);
+		transition-timing-function: var(--CORE-CONTEXTUAL-ALERT-COLLAPSE-EASING);
+	}
+	//overflow content
+	&__overflow-content {
+		//visual - UNLIKELY TO CHANGE
+		overflow: hidden;
+	}
+}

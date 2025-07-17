@@ -1,0 +1,9 @@
+.split-text {
+  display: inline-block;
+  overflow: hidden;
+
+  span {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+}

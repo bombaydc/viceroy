@@ -1,0 +1,77 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.sample-modal {
+	&__close-btn {
+		//layout - UNLIKELY TO CHANGE
+		@include flex-centered;
+
+		//size - UNLIKELY TO CHANGE
+		@include circle(var(--size-l));
+
+		//visual - LIKELY TO CHANGE
+		outline: 1px solid #f1f1ed;
+		color: #707070;
+
+		//layout - UNLIKELY TO CHANGE
+		margin-inline-start: auto; //keeps button at the end of the header regardless of the content on left
+
+		//icon
+		&-icon {
+			//size - UNLIKELY TO CHANGE
+			width: var(--size-2xs);
+			height: var(--size-2xs);
+
+			//path
+			&-path {
+				//visual - UNLIKELY TO CHANGE
+				fill: currentColor;
+			}
+		}
+		//motion - UNLIKELY TO CHANGE
+		transition-property: outline-color, color;
+		@include motion.button-hover-transition(".core-modal__close-btn-icon-path") {
+			//visual - LIKELY TO CHANGE
+			outline-color: #212121;
+			color: #212121;
+		}
+	}
+	&__content {
+		//layout - LIKELY TO CHANGE
+		display: grid;
+		max-width: var(--w-max);
+		margin-inline: auto;
+		width: 100%;
+
+		//spacing - LIKELY TO CHANGE
+		padding: var(--space-2xl);
+		gap: 32px;
+		@include media("<sm") {
+			padding-inline: var(--grid-column-gap);
+		}
+	}
+	&__title {
+		//visual - LIKELY TO CHANGE
+		color: #333;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 400;
+		letter-spacing: -0.96px;
+	}
+	&__img-wrapper {
+		@include media-wrapper;
+		aspect-ratio: 16 / 9;
+	}
+}

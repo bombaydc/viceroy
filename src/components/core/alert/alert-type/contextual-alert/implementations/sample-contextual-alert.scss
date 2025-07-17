@@ -1,0 +1,106 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.sample-contextual-alert {
+	//overflow content inner
+	.core-contextual-alert__overflow-content-inner {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+		align-items: flex-start;
+
+		//spacing - LIKELY TO CHANGE
+		padding: var(--space-2xs);
+		gap: var(--space-s);
+
+		//visual - LIKELY TO CHANGE
+		background-color: #fff9e3;
+	}
+	//message container
+	.core-contextual-alert__message-container {
+		//layout - UNLIKELY TO CHANGE
+		flex: 1;
+		display: flex;
+
+		//spacing - LIKELY TO CHANGE
+		gap: var(--space-nano);
+	}
+	//icon
+	.core-contextual-alert__icon {
+		//layout - UNLIKELY TO CHANGE
+		flex-shrink: 0;
+
+		//size - LIKELY TO CHANGE
+		width: 24px;
+		height: 24px;
+	}
+	//message wrapper
+	.core-contextual-alert__message-wrapper {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		//spacing - LIKELY TO CHANGE
+		gap: var(--space-3xs);
+	}
+	//message
+	.core-contextual-alert__message {
+		//visual - LIKELY TO CHANGE
+		color: #212121;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px;
+		letter-spacing: -0.42px;
+	}
+	//action btn
+	.core-contextual-alert__action-btn {
+		//size - LIKELY TO CHANGE
+		height: 32px;
+
+		//spacing - LIKELY TO CHANGE
+		padding-inline: var(--space-3xs);
+
+		//visual - LIKELY TO CHANGE
+		color: white;
+		background-color: #305ad4;
+		border-radius: 1000px;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 16px;
+		letter-spacing: -0.36px;
+		text-align: center;
+	}
+	//close-btn
+	.core-contextual-alert__close-btn {
+		//layout - UNLIKELY TO CHANGE
+		flex-shrink: 0;
+		@include flex-centered;
+
+		//size - LIKELY TO CHANGE
+		@include circle(32px);
+
+		//visual - LIKELY TO CHANGE
+		border: 1px solid #e1e1e3;
+		background: white;
+		&-icon {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}

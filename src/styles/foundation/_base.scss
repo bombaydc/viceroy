@@ -1,0 +1,57 @@
+@use "@scss-abstracts" as *;
+
+main {
+  min-height: 100svh;
+  height: 100%;
+  width: 100%;
+  padding-inline: var(--page-content-padding);
+}
+
+body[data-scroll-locked] {
+  padding-right: var(--scrollbar-width);
+  overflow: hidden;
+  touch-action: none;
+}
+
+.ui-section {
+  position: relative;
+  background-color: var(--bg-color);
+  &__wrapper {
+    width: 100%;
+    max-width: var(--w-max);
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-s);
+    @include media('<md') {
+      max-width: 100%;
+    }
+  }
+}
+
+
+.u-sr-only {
+	@include sr-only;
+}
+
+
+.u-grabbing-cursor {
+	cursor: grabbing;
+}
+.u-flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.d-n-override {
+	display: none !important;
+}
+.u-lock-body-scroll {
+	position: fixed;
+	inset-inline-start: 0;
+	inset-inline-end: 0;
+	inline-size: 100%;
+	overflow-y: scroll;
+}
+.u-make-scrollable {
+	height: 120vh;
+}

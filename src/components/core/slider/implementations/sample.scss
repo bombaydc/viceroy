@@ -1,0 +1,83 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.sample-card-slider {
+	//layout - LIKELY TO CHANGE
+	display: grid;
+
+	//spacing - LIKELY TO CHANGE
+	padding: var(--space-l) var(--page-content-padding);
+	gap: 16px;
+
+	//visual - LIKELY TO CHANGE
+	background-color: white;
+	@include media(">=maxwidth") {
+		//spacing - LIKELY TO CHANGE
+		padding-inline: 40px;
+	}
+	//header
+	.core-card-slider__header {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.core-card-slider__title {
+		//visual - LIKELY TO CHANGE
+		color: #212121;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: normal;
+	}
+	//card list
+	.core-card-slider__card-list {
+		//layout - LIKELY TO CHANGE
+		display: flex;
+
+		//size - LIKELY TO CHANGE
+		width: calc(100% + 2 * var(--page-content-padding));
+
+		//spacing - LIKELY TO CHANGE
+		margin-inline-start: calc(-1 * var(--page-content-padding));
+		padding-inline: var(--gap-compensated-page-content-padding);
+
+		@include media(">=maxwidth") {
+			//spacing - LIKELY TO CHANGE
+			--page-content-padding: 40px;
+			--gap-compensated-page-content-padding: calc(40px - 16px / 2);
+		}
+	}
+	//card list item
+	.core-card-slider__card-list-item {
+		//layout - LIKELY TO CHANGE
+		flex-shrink: 0;
+		flex-basis: calc(100% / 3);
+		@include media("<md") {
+			flex-basis: calc(100% - var(--grid-column-gap) / 2);
+		}
+
+		//spacing - LIKELY TO CHANGE
+		padding-inline: calc(var(--grid-column-gap) / 2);
+	}
+	//card
+	.core-card-slider__card {
+		//size - LIKELY TO CHANGE
+		aspect-ratio: 1;
+
+		//visual - LIKELY TO CHANGE
+		background-color: #d2d2d2;
+	}
+}

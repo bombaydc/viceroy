@@ -1,0 +1,77 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+@use 'sass:map';
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-circular-loader-vars: (
+	default: (
+		//size - LIKELY TO CHANGE
+		SIZE: 100px,
+		CIRCUMFERENCE: calc(3.14159265358979 * 16 * 2px),
+		//the circle radius (16px here) needs to be set specifically in the php file too
+		STROKE-WIDTH: 3px,
+
+		//visual - LIKELY TO CHANGE
+		STROKE-COLOR: #305ad4,
+
+		//motion - UNLIKELY TO CHANGE
+		SPINNER-ANIMATION-DURATION: var(--duration-1500),
+		SPINNER-ANIMATION-EASING: ease-out,
+	),
+);
+.core-circular-loader {
+	//variables
+	@include define-prefixed-root-variables("CORE-CIRCULAR-LOADER", map.get($core-circular-loader-vars, default));
+	//size
+	inline-size: var(--CORE-CIRCULAR-LOADER-SIZE);
+	block-size: var(--CORE-CIRCULAR-LOADER-SIZE);
+}
+.core-circular-loader__spinner {
+	//visual
+	fill: transparent;
+	stroke-linecap: round;
+	stroke: var(--CORE-CIRCULAR-LOADER-STROKE-COLOR);
+	stroke-width: var(--CORE-CIRCULAR-LOADER-STROKE-WIDTH);
+	stroke-dasharray: 1, var(--CORE-CIRCULAR-LOADER-CIRCUMFERENCE);
+	stroke-dashoffset: 0;
+
+	//motion
+	animation-name: core-circular-loader-rotate, core-circular-loader-dash;
+	animation-duration: var(--CORE-CIRCULAR-LOADER-SPINNER-ANIMATION-DURATION);
+	animation-timing-function: var(--CORE-CIRCULAR-LOADER-SPINNER-ANIMATION-EASING);
+	animation-iteration-count: infinite;
+	transform-origin: center;
+}
+@keyframes core-circular-loader-rotate {
+	0% {
+		transform: rotate(270deg);
+	}
+	100% {
+		transform: rotate(630deg);
+	}
+}
+
+@keyframes core-circular-loader-dash {
+	0% {
+		stroke-dasharray: 1, var(--CORE-CIRCULAR-LOADER-CIRCUMFERENCE);
+		stroke-dashoffset: 0;
+	}
+	50% {
+		stroke-dasharray: var(--CORE-CIRCULAR-LOADER-CIRCUMFERENCE), var(--CORE-CIRCULAR-LOADER-CIRCUMFERENCE);
+		stroke-dashoffset: 0;
+	}
+	100% {
+		stroke-dasharray: var(--CORE-CIRCULAR-LOADER-CIRCUMFERENCE), var(--CORE-CIRCULAR-LOADER-CIRCUMFERENCE);
+		stroke-dashoffset: calc(var(--CORE-CIRCULAR-LOADER-CIRCUMFERENCE) * -1);
+	}
+}

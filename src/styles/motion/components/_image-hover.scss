@@ -1,0 +1,19 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+//Durations
+[data-motion-element="image-scale"] {
+	[data-image-motion-element="image-wrapper"] {
+		overflow: hidden;
+		img {
+			will-change: scale;
+			transition: scale 0.3s var(--quad-decelerate);
+		}
+	}
+    @media (hover: hover) {
+        &:hover {
+            img {
+                scale: 1.05;
+            }
+        }
+    }
+}

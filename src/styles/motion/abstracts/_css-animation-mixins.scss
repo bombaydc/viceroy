@@ -1,0 +1,11 @@
+@use "./duration-map";
+@use "./easing-map";
+@use 'sass:map';
+
+//Define mixin for animation
+@mixin css-animation($duration-key, $easing-key) {
+	$duration: map.get(duration-map.$durations, $duration-key);
+	$easing: map.get(easing-map.$easings, $easing-key);
+	animation-duration: $duration;
+	animation-timing-function: $easing;
+}

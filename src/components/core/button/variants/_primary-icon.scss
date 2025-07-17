@@ -1,0 +1,111 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+@use 'sass:map';
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+//root variables - CHANGEME
+$expressive-primary-icon-btn-vars: (
+  default: (
+    //size
+    CIRCLE-SIZE: var(--size-l),
+    SIZE: var(--size-2xs),
+    //visual (colors, backgrounds, borders, overflows)
+    BG-DEFAULT-COLOR: #305ad4,
+    BG-HOVER-COLOR: #305ad4,
+    BG-DISABLED-COLOR: #9ea1ad,
+    //typography
+    TEXT-DEFAULT-COLOR: white,
+    //motion
+    MOTION-DURATION: var(--duration-400),
+    MOTION-EASING: var(--quart),
+  ),
+  mobile: (
+    //visual
+    BG-HOVER-COLOR: #284fc3,
+  ),
+);
+@mixin expressive-primary-icon-btn-state($state) {
+  @if $state == hover {
+    background-color: var(--EXPRESSIVE-PRIMARY-ICON-BTN-BG-HOVER-COLOR);
+    .core-button__icon {
+      transform: translateX(100%);
+    }
+  } @else if $state == disabled {
+    background-color: var(--EXPRESSIVE-PRIMARY-ICON-BTN-BG-DISABLED-COLOR);
+    pointer-events: none;
+  }
+}
+.core-button--primary-icon {
+  //variables - UNLIKELY TO CHANGE
+  @include define-prefixed-root-variables(
+    'EXPRESSIVE-PRIMARY-ICON-BTN',
+    map.get($expressive-primary-icon-btn-vars, default)
+  );
+  @include media('<md') {
+    @include define-prefixed-root-variables(
+      'EXPRESSIVE-PRIMARY-ICON-BTN',
+      map.get($expressive-primary-icon-btn-vars, mobile)
+    );
+  }
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--EXPRESSIVE-PRIMARY-ICON-BTN-CIRCLE-SIZE);
+  block-size: var(--EXPRESSIVE-PRIMARY-ICON-BTN-CIRCLE-SIZE);
+  background-color: var(--EXPRESSIVE-PRIMARY-ICON-BTN-BG-DEFAULT-COLOR);
+  border-radius: 50%;
+  color: var(--EXPRESSIVE-PRIMARY-ICON-BTN-TEXT-DEFAULT-COLOR);
+  //states - UNLIKELY TO CHANGE
+  transition-property: background-color;
+  @include motion.button-hover-transition {
+    @include expressive-primary-icon-btn-state(hover);
+  }
+  &[disabled],
+  &.is-disabled {
+    @include expressive-primary-icon-btn-state(disabled);
+  }
+  .core-button {
+    //icon wrapper
+    &__icon-wrapper {
+      //layout - UNLIKELY TO CHANGE
+      display: flex;
+      justify-content: flex-end;
+
+      //size - UNLIKELY TO CHANGE
+      inline-size: var(--EXPRESSIVE-PRIMARY-ICON-BTN-SIZE);
+      block-size: var(--EXPRESSIVE-PRIMARY-ICON-BTN-SIZE);
+
+      //visual - UNLIKELY TO CHANGE
+      overflow: hidden;
+    }
+    //icon
+    &__icon {
+      //layout - UNLIKELY TO CHANGE
+      flex-shrink: 0;
+
+      //size - UNLIKELY TO CHANGE
+      inline-size: var(--EXPRESSIVE-PRIMARY-ICON-BTN-SIZE);
+      block-size: var(--EXPRESSIVE-PRIMARY-ICON-BTN-SIZE);
+
+      //visual (colors, backgrounds, borders, overflows) - UNLIKELY TO CHANGE
+      path {
+        fill: currentColor;
+      }
+
+      //motion - UNLIKELY TO CHANGE
+      transition: transform var(--EXPRESSIVE-PRIMARY-ICON-BTN-MOTION-DURATION)
+        var(--EXPRESSIVE-PRIMARY-ICON-BTN-MOTION-EASING);
+    }
+  }
+}

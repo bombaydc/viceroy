@@ -1,0 +1,24 @@
+@use "sass:map";
+@use "sass:string";
+
+@use "font-tokens" as *;
+@use "font-families" as *;
+@mixin font-style($token-name: $default-font-token) {
+  $token: map.get($font-sizes, $token-name);
+
+  @if $token {
+    font-size: map.get($token, size);
+    line-height: map.get($token, line);
+    font-weight: map.get($token, weight);
+    letter-spacing: map.get($token, spacing, 0);
+
+    $family-key: map.get($token, family);
+    $font-family: map.get($font-families, $family-key);
+
+    @if $font-family {
+      font-family: string.unquote($font-family);
+    }
+  } @else {
+    @warn "⚠️ Font token `#{$token-name}` not found.";
+  }
+}

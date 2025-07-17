@@ -1,0 +1,91 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.sample-toast-alert {
+	//size - LIKELY TO CHANGE
+	width: 390px;
+	@include media("<md") {
+		width: calc(100% - 2 * var(--grid-column-gap));
+	}
+
+	//spacing - LIKELY TO CHANGE
+	inset-block-end: 24px;
+	inset-inline-start: 40px;
+	@include media("<md") {
+		inset-block-end: 24px;
+		inset-inline-start: var(--grid-column-gap);
+	}
+
+	//inner
+	.core-toast-alert__inner {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		//size - UNLIKELY TO CHANGE
+		width: 100%;
+
+		//spacing - LIKELY TO CHANGE
+		padding: var(--space-4xs) var(--space-2xs);
+		gap: var(--space-s);
+
+		//visual - LIKELY TO CHANGE
+		background: #2c2c2c;
+		box-shadow: var(--c-toast-alert-shadow);
+	}
+	//message
+	.core-toast-alert__message {
+		//visual - LIKELY TO CHANGE
+		color: white;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 20px;
+		letter-spacing: -0.42px;
+	}
+	.core-toast-alert__action-container {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4xs);
+	}
+	//action-btn
+	.core-toast-alert__action-btn {
+		//visual - LIKELY TO CHANGE
+		color: #96b1ff;
+
+		//typography - LIKELY TO CHANGE
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 20px;
+		letter-spacing: -0.42px;
+		text-align: center;
+	}
+	//close-btn
+	.core-toast-alert__close-btn {
+		//layout - UNLIKELY TO CHANGE
+		flex-shrink: 0;
+		@include flex-centered;
+
+		//size - LIKELY TO CHANGE
+		width: 32px;
+		height: 32px;
+		&-icon {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}

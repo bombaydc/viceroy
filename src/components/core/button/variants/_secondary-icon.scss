@@ -1,0 +1,118 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+@use 'sass:map';
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+//root variables - CHANGEME
+$expressive-secondary-icon-btn-vars: (
+  default: (
+    //size
+    CIRCLE-SIZE: var(--size-l),
+    SIZE: var(--size-2xs),
+    //visual (colors, backgrounds, borders, overflows)
+    BORDER-DEFAULT-COLOR: #e1e1e3,
+    BG-DEFAULT-COLOR: white,
+    BG-HOVER-COLOR: #284fc3,
+    BG-DISABLED-COLOR: #9ea1ad,
+    //typography
+    TEXT-DEFAULT-COLOR: #212121,
+    TEXT-HOVER-COLOR: white,
+    TEXT-DISABLED-COLOR: white,
+    //motion
+    MOTION-DURATION: var(--duration-400),
+    MOTION-EASING: var(--quart),
+  ),
+  mobile: (
+    //visual
+    BG-HOVER-COLOR: #284fc3,
+  ),
+);
+@mixin expressive-secondary-icon-btn-state($state) {
+  @if $state == hover {
+    background-color: var(--EXPRESSIVE-SECONDARY-ICON-BTN-BG-HOVER-COLOR);
+    color:  var(--EXPRESSIVE-SECONDARY-ICON-BTN-TEXT-HOVER-COLOR);
+    .core-button__icon {
+      transform: translateX(100%);
+    }
+  } @else if $state == disabled {
+    background-color: var(--EXPRESSIVE-SECONDARY-ICON-BTN-BG-DISABLED-COLOR);
+    pointer-events: none;
+  }
+}
+.core-button--secondary-icon {
+  //variables - UNLIKELY TO CHANGE
+  @include define-prefixed-root-variables(
+    'EXPRESSIVE-SECONDARY-ICON-BTN',
+    map.get($expressive-secondary-icon-btn-vars, default)
+  );
+  @include media('<md') {
+    @include define-prefixed-root-variables(
+      'EXPRESSIVE-SECONDARY-ICON-BTN',
+      map.get($expressive-secondary-icon-btn-vars, mobile)
+    );
+  }
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--EXPRESSIVE-SECONDARY-ICON-BTN-CIRCLE-SIZE);
+  block-size: var(--EXPRESSIVE-SECONDARY-ICON-BTN-CIRCLE-SIZE);
+  background-color: var(--EXPRESSIVE-SECONDARY-ICON-BTN-BG-DEFAULT-COLOR);
+  border-radius: 50%;
+  color: var(--EXPRESSIVE-SECONDARY-ICON-BTN-TEXT-DEFAULT-COLOR);
+  border: 1px solid var(--EXPRESSIVE-SECONDARY-ICON-BTN-BORDER-DEFAULT-COLOR); 
+
+ 
+  //states - UNLIKELY TO CHANGE
+  transition-property: background-color;
+  @include motion.button-hover-transition {
+    @include expressive-secondary-icon-btn-state(hover);
+  }
+  &[disabled],
+  &.is-disabled {
+    @include expressive-secondary-icon-btn-state(disabled);
+  }
+  .core-button {
+    //icon wrapper
+    &__icon-wrapper {
+      //layout - UNLIKELY TO CHANGE
+      display: flex;
+      justify-content: flex-end;
+
+      //size - UNLIKELY TO CHANGE
+      inline-size: var(--EXPRESSIVE-SECONDARY-ICON-BTN-SIZE);
+      block-size: var(--EXPRESSIVE-SECONDARY-ICON-BTN-SIZE);
+
+      //visual - UNLIKELY TO CHANGE
+      overflow: hidden;
+    }
+    //icon
+    &__icon {
+      //layout - UNLIKELY TO CHANGE
+      flex-shrink: 0;
+
+      //size - UNLIKELY TO CHANGE
+      inline-size: var(--EXPRESSIVE-SECONDARY-ICON-BTN-SIZE);
+      block-size: var(--EXPRESSIVE-SECONDARY-ICON-BTN-SIZE);
+
+      //visual (colors, backgrounds, borders, overflows) - UNLIKELY TO CHANGE
+      path {
+        fill: currentColor;
+      }
+
+      //motion - UNLIKELY TO CHANGE
+      transition: transform var(--EXPRESSIVE-SECONDARY-ICON-BTN-MOTION-DURATION)
+        var(--EXPRESSIVE-SECONDARY-ICON-BTN-MOTION-EASING);
+    }
+  }
+}

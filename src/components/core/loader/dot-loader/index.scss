@@ -1,0 +1,159 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+@use 'sass:map';
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-dot-loader-vars: (
+	default: (
+		//size - UNLIKELY TO CHANGE
+		CONTAINER-SIZE: 36px,
+		DOT-SIZE: 8px,
+
+		//spacing - LIKELY TO CHANGE
+		DOT-GAP: 6px,
+
+		//visual - LIKELY TO CHANGE
+		DOT-COLOR: #305ad4,
+
+		//motion - UNLIKELY TO CHANGE
+		MOTION-DURATION: var(--duration-800),
+		MOTION-EASING: var(--legacy),
+	),
+);
+//keyframes
+@keyframes core-dot-loader-loading-dot-1 {
+	0% {
+		opacity: 0;
+		transform: scale(0);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+@keyframes core-dot-loader-loading-dot-2 {
+	0% {
+		transform: none;
+	}
+	100% {
+		transform: translateX(14px);
+	}
+}
+@keyframes core-dot-loader-loading-dot-3 {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(0);
+	}
+}
+//core-dot-loader
+.core-dot-loader {
+	//root variables - LIKELY TO CHANGE
+	@include define-prefixed-root-variables("CORE-DOT-LOADER", map.get($core-dot-loader-vars, default));
+
+	//layout - UNLIKELY TO CHANGE
+	position: absolute;
+	inset-inline-start: 0;
+	inset-block-start: 0;
+	display: block;
+
+	//size - UNLIKELY TO CHANGE
+	inline-size: 100%;
+	block-size: 100%;
+
+	//visual - UNLIKELY TO CHANGE
+	pointer-events: none;
+
+	//container
+	&__container {
+		//layout - UNLIKELY TO CHANGE
+		position: relative;
+		inset-inline-start: 50%;
+		inset-block-start: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		transform: translate(-50%, -50%);
+
+		//size - UNLIKELY TO CHANGE
+		inline-size: var(--CORE-DOT-LOADER-CONTAINER-SIZE);
+		block-size: var(--CORE-DOT-LOADER-DOT-SIZE);
+
+		//spacing - UNLIKELY TO CHANGE
+		gap: var(--CORE-DOT-LOADER-DOT-GAP);
+	}
+
+	&__dot {
+		//layout - UNLIKELY TO CHANGE
+		display: inline-block;
+
+		//size - UNLIKELY TO CHANGE
+		inline-size: var(--CORE-DOT-LOADER-DOT-SIZE);
+		block-size: var(--CORE-DOT-LOADER-DOT-SIZE);
+
+		//visual - UNLIKELY TO CHANGE
+		border-radius: 50%;
+
+		&--one::before,
+		&--one::after,
+		&--two,
+		&--three {
+			//visual - UNLIKELY TO CHANGE
+			background-color: var(--CORE-DOT-LOADER-DOT-COLOR);
+
+			//motion - UNLIKELY TO CHANGE
+			animation-duration: var(--CORE-DOT-LOADER-MOTION-DURATION);
+			animation-timing-function: var(--CORE-DOT-LOADER-MOTION-EASING);
+			animation-fill-mode: forwards;
+			animation-iteration-count: infinite;
+		}
+		&--one {
+			//layout - UNLIKELY TO CHANGE
+			position: relative;
+			&::before,
+			&::after {
+				//layout - UNLIKELY TO CHANGE
+				position: absolute;
+				inset-inline-start: 0;
+				inset-block-start: 0;
+
+				//size - UNLIKELY TO CHANGE
+				inline-size: var(--CORE-DOT-LOADER-DOT-SIZE);
+				block-size: var(--CORE-DOT-LOADER-DOT-SIZE);
+
+				//visual - UNLIKELY TO CHANGE
+				content: "";
+				border-radius: 50%;
+			}
+			&::before {
+				//motion - UNLIKELY TO CHANGE
+				animation-name: core-dot-loader-loading-dot-1;
+			}
+
+			&::after {
+				//motion - UNLIKELY TO CHANGE
+				animation-name: core-dot-loader-loading-dot-2;
+			}
+		}
+		&--two {
+			//motion - UNLIKELY TO CHANGE
+			animation-name: core-dot-loader-loading-dot-2;
+		}
+		&--three {
+			//motion - UNLIKELY TO CHANGE
+			animation-name: core-dot-loader-loading-dot-3;
+		}
+	}
+}

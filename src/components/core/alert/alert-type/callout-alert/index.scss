@@ -1,0 +1,21 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+@use "./implementations/sample-callout-alert";
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.core-callout-alert {
+	//layout - UNLIKELY TO CHANGE
+	display: block;
+
+	//size - UNLIKELY TO CHANGE
+	width: 100%;
+}

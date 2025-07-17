@@ -1,0 +1,122 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion;
+@use "./implementations/sample";
+@use 'sass:map';
+ 
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-tab-group-vars: (
+	default: (
+		//size - UNLIKELY TO CHANGE
+		OVERFLOW-BTN-INLINE-SIZE: 50px,
+		OVERFLOW-BTN-BLOCK-SIZE: calc(100% - 2px),
+		//visual - UNLIKELY TO CHANGE
+		DISABLED-OPACITY: 0,
+		//motion - UNLIKELY TO CHANGE
+		OVERFLOW-BTN-ENTRY-EXIT-DURATION: var(--duration-100),
+		OVERFLOW-BTN-ENTRY-EXIT-EASING: var(--standard),
+	),
+);
+
+.core-tab-group {
+	@include define-prefixed-root-variables("CORE-TAB-GROUP", map.get($core-tab-group-vars, default));
+
+	//layout - UNLIKELY TO CHANGE
+	display: block;
+
+	//tablist container
+	.core-tab-group__tablist-container {
+		//layout - UNLIKELY TO CHANGE
+		position: relative;
+		overflow: hidden;
+	}
+	//tablist
+	.core-tab-group__tablist {
+		//layout - UNLIKELY TO CHANGE
+		position: relative; //this is important in order to get the correct offsetLeft for each menu item on prev and next click
+		display: flex;
+        gap: 1rem;
+
+		//visual - UNLIKELY TO CHANGE
+		overflow-x: auto;
+		@include hide-scrollbar;
+	}
+	//tabs
+	.core-tab-group__tab {
+		//visual - UNLIKELY TO CHANGE
+		cursor: pointer;
+
+		//typography - UNLIKELY TO CHANGE
+		white-space: nowrap;
+
+		//states - UNLIKELY TO CHANGE
+		&[aria-disabled="true"] {
+			pointer-events: none;
+			opacity: var(--CORE-TAB-GROUP-DISABLED-OPACITY);
+		}
+ 
+	}
+	//tab panels
+	.core-tab-group__tabpanel[hidden] {
+		//layout - UNLIKELY TO CHANGE
+		display: none;
+	}
+	//overflow buttons
+	:is(.core-tab-group__prev-btn, .core-tab-group__next-btn) {
+		//layout - UNLIKELY TO CHANGE
+		position: absolute;
+		inset-block-start: 1px;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+
+		//size - UNLIKELY TO CHANGE
+		inline-size: var(--CORE-TAB-GROUP-OVERFLOW-BTN-INLINE-SIZE);
+		block-size: var(--CORE-TAB-GROUP-OVERFLOW-BTN-BLOCK-SIZE);
+
+		//motion - UNLIKELY TO CHANGE
+		transition-property: opacity;
+		transition-duration: var(--CORE-TAB-GROUP-OVERFLOW-BTN-ENTRY-EXIT-DURATION);
+		transition-timing-function: var(--CORE-TAB-GROUP-OVERFLOW-BTN-ENTRY-EXIT-EASING);
+
+		//states - UNLIKELY TO CHANGE
+		&:disabled {
+			opacity: var(--CORE-TAB-GROUP-DISABLED-OPACITY);
+			pointer-events: none;
+		}
+	}
+	.core-tab-group__prev-btn {
+		//layout - UNLIKELY TO CHANGE
+		inset-inline-start: -10px;
+		padding-inline-start: 10px;
+		justify-content: flex-start;
+		@include media(">maxwidth") {
+			inset-inline-start: -10px;
+		}
+		//visual - UNLIKELY TO CHANGE
+		background: var(--c-overflow-prev-btn-bg);
+		&__icon {
+			transform: rotate(180deg);
+		}
+	}
+	.core-tab-group__next-btn {
+		//layout - UNLIKELY TO CHANGE
+		inset-inline-end: -10px;
+		padding-inline-end: 10px;
+		justify-content: flex-end;
+		@include media(">maxwidth") {
+			inset-inline-end: -10px;
+		}
+		//visual - UNLIKELY TO CHANGE
+		background: var(--c-overflow-next-btn-bg);
+	}
+}

@@ -1,0 +1,80 @@
+@use "@scss-abstracts" as *;
+@use "@scss-motion-abstracts" as motion; 
+@use "sass:map";
+@use './implementations/sample';
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-breadcrumbs-vars: (
+	default: (
+		//size - LIKELY TO CHANGE
+		ARROW-SIZE: var(--size-2xs),
+	),
+);
+.core-breadcrumbs {
+	//root - UNLIKELY TO CHANGE
+	@include define-prefixed-root-variables("CORE-BREADCRUMBS", map.get($core-breadcrumbs-vars, default));
+
+	//list
+	&__list {
+		//layout - UNLIKELY TO CHANGE
+		display: flex;
+
+		//spacing - UNLIKELY TO CHANGE
+		padding-inline-end: var(--grid-column-gap);
+	}
+	&:not([state="collapsed"]) .core-breadcrumbs__list {
+		flex-wrap: wrap;
+	}
+	&__list-item {
+		//layout - UNLIKELY TO CHANGE
+		display: inline-flex;
+		&:not(:last-child) {
+			//layout - UNLIKELY TO CHANGE
+			flex-shrink: 0;
+			display: flex;
+		align-items: center;
+
+			&::after {
+				//layout - UNLIKELY TO CHANGE
+				display: inline-block;
+
+				//size - LIKELY TO CHANGE
+				width: var(--CORE-BREADCRUMBS-ARROW-SIZE);
+				height: var(--CORE-BREADCRUMBS-ARROW-SIZE);
+
+				//visual - LIKELY TO CHANGE
+				content: "";
+				background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M8.63084 8.00009L5.91534 5.28476C5.82312 5.19242 5.7759 5.07637 5.77367 4.93659C5.77156 4.79692 5.81879 4.67876 5.91534 4.58209C6.01201 4.48553 6.12912 4.43726 6.26667 4.43726C6.40423 4.43726 6.52134 4.48553 6.61801 4.58209L9.61417 7.57826C9.67651 7.6407 9.72051 7.70653 9.74617 7.77576C9.77184 7.84498 9.78467 7.91976 9.78467 8.00009C9.78467 8.08042 9.77184 8.1552 9.74617 8.22442C9.72051 8.29365 9.67651 8.35948 9.61417 8.42192L6.61801 11.4181C6.52567 11.5103 6.40962 11.5575 6.26984 11.5598C6.13017 11.5619 6.01201 11.5146 5.91534 11.4181C5.81879 11.3214 5.77051 11.2043 5.77051 11.0668C5.77051 10.9292 5.81879 10.8121 5.91534 10.7154L8.63084 8.00009Z' fill='%236B6B80' /%3E%3C/svg%3E");
+				background-size: contain;
+				background-position: center;
+			}
+		}
+	}
+	&__crumb {
+		//layout - UNLIKELY TO CHANGE
+		display: inline-block;
+
+		//states - UNLIKELY TO CHANGE
+		&[disabled] {
+			pointer-events: none;
+		}
+	}
+	&[state="collapsed"] {
+		@include media("<sm") {
+			//not the last child, not the second last child, not the expand btn
+			.core-breadcrumbs__list-item:not(:last-child):not(:nth-last-child(2)):not(.core-breadcrumbs__expand-btn) {
+				display: none;
+			}
+		}
+	}
+}

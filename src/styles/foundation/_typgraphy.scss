@@ -1,0 +1,63 @@
+@use "../abstracts/typography" as *;
+
+html {
+  font-size: 100%; // 16px base (can scale with user preference)
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @include font-style(body-md); // applies default body size, line-height, font-weight, font-family
+  color: #111;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  @include font-style(heading-lg); 
+}
+
+h2 {
+  @include font-style(heading-md); 
+}
+
+h3 {
+  @include font-style(heading-sm); 
+}
+
+p {
+  @include font-style(body-md); 
+}
+
+small {
+  @include font-style(body-sm);
+}
+
+strong {
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
+ul,
+ol {
+  padding-left: 1.5rem; 
+}
+ 
+code,
+pre {
+  font-family: "Courier New", monospace;
+  font-size: 0.875rem;
+  background-color: #f5f5f5;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}

@@ -1,0 +1,124 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+@use 'sass:map';
+
+
+//root variables - CHANGEME
+$standard-secondary-btn-vars: (
+  default: (
+    //size
+    MIN-INLINE-SIZE: 120px,
+    BLOCK-SIZE: 44px,
+    ICON-SIZE: 18px,
+    //spacing
+    PADDING-INLINE: var(--space-xs),
+    TEXT-ICON-GAP: var(--space-macro),
+    //visual (colors, backgrounds, borders, overflows)
+    BORDER-DEFAULT-COLOR: #e1e1e3,
+    BG-DEFAULT-COLOR: white,
+    BG-HOVER-COLOR: #284fc3,
+    BG-DISABLED-COLOR: #9ea1ad,
+    //typography
+    TEXT-DEFAULT-COLOR: #212121,
+    TEXT-HOVER-COLOR: white,
+    TEXT-DISABLED-COLOR: white,
+  ),
+  mobile: (
+    //visual
+    BG-HOVER-COLOR: #2446ae,
+  ),
+);
+@mixin standard-secondary-btn-state($state) {
+  @if $state == hover {
+    background-color: var(--STANDARD-SECONDARY-BTN-BG-HOVER-COLOR);
+    color: var(--STANDARD-SECONDARY-BTN-TEXT-HOVER-COLOR);
+  } @else if $state == disabled {
+    background-color: var(--STANDARD-SECONDARY-BTN-BG-DISABLED-COLOR);
+    color: var(--STANDARD-SECONDARY-BTN-TEXT-DISABLED-COLOR);
+    pointer-events: none;
+  } @else if $state == loading {
+    position: relative;
+    pointer-events: none;
+    .core-dot-loader {
+      visibility: visible;
+    }
+    .core-button__icon,
+    .core-button__text {
+      visibility: hidden;
+    }
+  }
+}
+.core-button.core-button--secondary {
+  //variables - unlikely-to-change
+  @include define-prefixed-root-variables(
+    'STANDARD-SECONDARY-BTN',
+    map.get($standard-secondary-btn-vars, default)
+  );
+  @include media('<md') {
+    @include define-prefixed-root-variables(
+      'STANDARD-SECONDARY-BTN',
+      map.get($standard-secondary-btn-vars, mobile)
+    );
+  }
+  //layout - UNLIKELY TO CHANGE
+  @include flex-centered;
+
+  //size - UNLIKELY TO CHANGE
+  min-inline-size: var(--STANDARD-SECONDARY-BTN-MIN-INLINE-SIZE);
+  block-size: var(--STANDARD-SECONDARY-BTN-BLOCK-SIZE);
+
+  //spacing - LIKELY TO CHANGE
+  padding-inline: var(--STANDARD-SECONDARY-BTN-PADDING-INLINE);
+  gap: var(--STANDARD-SECONDARY-BTN-TEXT-ICON-GAP);
+
+  //visual (colors, backgrounds, borders, overflows) - CHANGEME
+  border-radius: var(--radius-1000);
+  border: 1px solid var(--STANDARD-SECONDARY-BTN-BORDER-DEFAULT-COLOR);
+  background-color: var(--STANDARD-SECONDARY-BTN-BG-DEFAULT-COLOR);
+  color: var(--STANDARD-SECONDARY-BTN-TEXT-DEFAULT-COLOR);
+
+  //motion - UNLIKELY TO CHANGE
+  transition-property: background-color, color;
+  @include motion.button-hover-transition() {
+    @include standard-secondary-btn-state(hover);
+  }
+  //states - UNLIKELY TO CHANGE
+  &[disabled],
+  &.is-disabled {
+    @include standard-secondary-btn-state(disabled);
+  }
+//loader
+  .core-dot-loader {
+    --CORE-DOT-LOADER-DOT-COLOR: white;
+    visibility: hidden;
+  }
+  &.core-button--loading {
+    @include standard-secondary-btn-state(loading);
+  }
+  .core-button {
+    //icon
+    &__icon {
+      //size - UNLIKELY TO CHANGE
+      inline-size: var(--STANDARD-SECONDARY-BTN-ICON-SIZE);
+      block-size: var(--STANDARD-SECONDARY-BTN-ICON-SIZE);
+
+      //visual (colors, backgrounds, borders, overflows) - UNLIKELY TO CHANGE
+      path {
+        fill: currentColor;
+      }
+    }
+    //text
+    &__text {
+      //visual (colors, backgrounds, borders, overflows) - CHANGEME
+      color: currentColor;
+
+      //typography - CHANGEME
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: -0.42px;
+      text-align: center;
+    }
+  }
+}

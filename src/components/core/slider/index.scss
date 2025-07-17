@@ -1,0 +1,112 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+@use './nav';
+@use './implementations/sample';
+@use 'sass:map';
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+$core-card-slider-vars: (
+  default: (
+    //size - UNLIKELY TO CHANGE
+    scroll-indicator-mobile-width: 140px,
+    scroll-indicator-tablet-width: 240px,
+    scroll-indicator-track-height: 2px,
+
+    //visual - UNLIKELY TO CHANGE
+    scroll-indicator-track-color: #e1e1e3,
+    scroll-indicator-thumb-color: #5c5c64,
+  ),
+);
+.core-card-slider {
+  //root - UNLIKELY TO CHANGE
+  @include define-prefixed-root-variables(
+    'core-card-slider',
+    map.get($core-card-slider-vars, default)
+  );
+  //card list
+  .core-card-slider__card-list {
+    //visual - UNLIKELY TO CHANGE
+    scroll-snap-type: x mandatory;
+    scroll-padding: var(--gap-compensated-page-content-padding);
+    overflow-x: auto;
+    @include hide-scrollbar;
+    @include media('<md') {
+      //overscroll-behavior: none;//this property seems to be blocking any scroll interaction vertically. If i try to scroll vertically over the slider cards, it doesnt work
+    }
+  }
+  //card
+  .core-card-slider__card-list-item {
+    //visual - UNLIKELY TO CHANGE
+    scroll-snap-align: start;
+  }
+  //scroll indicator
+  .core-card-slider__scroll-indicator {
+    flex-shrink: 0;
+    //mobile
+    @include media('<sm') {
+      //size - UNLIKELY TO CHANGE
+      width: var(--core-card-slider-scroll-indicator-mobile-width);
+    }
+    //tablet
+    @include media('>=sm', '<md') {
+      //size - UNLIKELY TO CHANGE
+      width: var(--core-card-slider-scroll-indicator-tablet-width);
+    }
+    &-track {
+      //layout - UNLIKELY TO CHANGE
+      position: relative;
+
+      //size - UNLIKELY TO CHANGE
+      width: 100%;
+      height: var(--core-card-slider-scroll-indicator-track-height);
+
+      //visual - LIKELY TO CHANGE
+      border-radius: 50px;
+      background-color: var(--core-card-slider-scroll-indicator-track-color);
+    }
+    &-thumb {
+      //layout - UNLIKELY TO CHANGE
+      position: absolute;
+
+      //size - UNLIKELY TO CHANGE
+      min-width: auto;
+      height: 100%;
+
+      //spacing - UNLIKELY TO CHANGE
+      inset-block-start: 0;
+      inset-inline-start: 0;
+
+      //visual - LIKELY TO CHANGE
+      border-radius: 50px;
+      background-color: var(--core-card-slider-scroll-indicator-thumb-color);
+    }
+  }
+  //footer
+  .core-card-slider__footer {
+    //layout - UNLIKELY TO CHANGE
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    //spacing - LIKELY TO CHANGE
+    margin-block-start: var(--grid-row-gap);
+  }
+
+  // Show card in center when data-card-per="1"
+  &[data-card-per='1'] .core-card-slider__card-list-item {
+    scroll-snap-align: center;
+  }
+  &[data-card-per='2'] .core-card-slider__card-list-item {
+    scroll-snap-align: center;
+  }
+}
