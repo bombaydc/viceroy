@@ -19,6 +19,14 @@
 
 # production
 /build
+/dist
+# cache
+/.cache
+/.nuxt
+/.nuxt-data
+/.cache-loader
+# logs
+/logs 
 
 # misc
 .DS_Store
