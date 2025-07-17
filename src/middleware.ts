@@ -15,17 +15,20 @@ const runMiddlewares = (
 };
 export function middleware(req: NextRequest) {
   // Run all functional middlewares and get the base response
+  if (process.env.NODE_ENV === 'development') {
+    return NextResponse.next();
+  }
   runMiddlewares(req, [
     sqlInjectionMiddleware,
     imageValidationMiddleware,
   ]);
 
   // Ensure we always get a NextResponse
-  const baseResponse =   NextResponse.next();
+  const baseResponse = NextResponse.next();
 
   // Add CSP and security headers to the response
   const cspResponse = cspMiddleware(baseResponse);
- 
+
 
   return cspResponse;
 }

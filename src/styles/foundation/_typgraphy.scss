@@ -7,32 +7,13 @@ html {
 }
 
 body {
-  @include font-style(body-md); // applies default body size, line-height, font-weight, font-family
+  @include font-style(d-b1-montserrat); // applies default body size, line-height, font-weight, font-family
   color: #111;
   background-color: #fff;
   margin: 0;
   padding: 0;
 }
-
-h1 {
-  @include font-style(heading-lg); 
-}
-
-h2 {
-  @include font-style(heading-md); 
-}
-
-h3 {
-  @include font-style(heading-sm); 
-}
-
-p {
-  @include font-style(body-md); 
-}
-
-small {
-  @include font-style(body-sm);
-}
+ 
 
 strong {
   font-weight: 600;
@@ -40,18 +21,9 @@ strong {
 
 a {
   color: inherit;
-  text-decoration: none;
-
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-  }
+  text-decoration: none; 
 }
-
-ul,
-ol {
-  padding-left: 1.5rem; 
-}
+ 
  
 code,
 pre {

@@ -1,0 +1,27 @@
+{
+    "data": {
+        "id": 4,
+        "documentId": "o2ccj38a62dp1zxqp6iafgoy",
+        "createdAt": "2025-07-08T15:19:54.767Z",
+        "updatedAt": "2025-07-09T13:33:14.735Z",
+        "publishedAt": "2025-07-09T13:33:14.781Z",
+        "seo": {
+            "id": 5,
+            "metaTitle": "The latest from Viceroy",
+            "metaDescription": "Explore press features, project updates, and milestones from Viceroy Properties.",
+            "keywords": null,
+            "metaRobots": null,
+            "metaViewport": null,
+            "canonicalURL": null,
+            "structuredData": null,
+            "openGraph": null
+        },
+        "mediaLanding": {
+            "id": 4,
+            "preTitle": "Media",
+            "Title": "The latest from Viceroy",
+            "Description": "Explore press features, project updates, and milestones from Viceroy Properties."
+        }
+    },
+    "meta": {}
+}

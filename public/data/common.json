@@ -1,0 +1,148 @@
+{
+    "data": {
+        "id": 3,
+        "documentId": "e6m8zker8kzq7spkr916z8r5",
+        "createdAt": "2025-07-10T07:43:13.235Z",
+        "updatedAt": "2025-07-10T08:04:40.752Z",
+        "publishedAt": "2025-07-10T08:04:40.843Z",
+        "header_script": "test",
+        "body_script": "test",
+        "footer_script": "test",
+        "copyright": "©2025 Viceroy Properties.",
+        "MenuDetails": [
+            {
+                "id": 5,
+                "title": "Projects",
+                "link": null,
+                "isFooter": null,
+                "IsSitemap": null,
+                "IsHeader": null,
+                "isExternal": false,
+                "childCard": [
+                    {
+                        "id": 16,
+                        "title": "Viceroy Prive",
+                        "link": "Viceroy Prive",
+                        "isFooter": null,
+                        "IsSitemap": null,
+                        "IsHeader": null,
+                        "isExternal": false
+                    },
+                    {
+                        "id": 17,
+                        "title": "Viceroy Savana",
+                        "link": "Viceroy Savana",
+                        "isFooter": null,
+                        "IsSitemap": null,
+                        "IsHeader": null,
+                        "isExternal": false
+                    },
+                    {
+                        "id": 18,
+                        "title": "Viceroy Versova",
+                        "link": "Viceroy Versova",
+                        "isFooter": null,
+                        "IsSitemap": null,
+                        "IsHeader": null,
+                        "isExternal": false
+                    },
+                    {
+                        "id": 19,
+                        "title": "Home",
+                        "link": "Home",
+                        "isFooter": true,
+                        "IsSitemap": null,
+                        "IsHeader": true,
+                        "isExternal": false
+                    },
+                    {
+                        "id": 20,
+                        "title": "About",
+                        "link": "About",
+                        "isFooter": true,
+                        "IsSitemap": true,
+                        "IsHeader": true,
+                        "isExternal": false
+                    },
+                    {
+                        "id": 21,
+                        "title": "About Viceroy",
+                        "link": null,
+                        "isFooter": null,
+                        "IsSitemap": true,
+                        "IsHeader": null,
+                        "isExternal": false
+                    },
+                    {
+                        "id": 22,
+                        "title": "Approach",
+                        "link": "Approach",
+                        "isFooter": null,
+                        "IsSitemap": true,
+                        "IsHeader": null,
+                        "isExternal": false
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "title": "CAREERS",
+                "link": null,
+                "isFooter": true,
+                "IsSitemap": true,
+                "IsHeader": true,
+                "isExternal": false,
+                "childCard": [
+                    {
+                        "id": 23,
+                        "title": "CAREERSData",
+                        "link": "CAREERSData",
+                        "isFooter": null,
+                        "IsSitemap": null,
+                        "IsHeader": null,
+                        "isExternal": false
+                    }
+                ]
+            }
+        ],
+        "legalCard": [
+            {
+                "id": 9,
+                "title": "Terms of use ",
+                "link": "terms"
+            },
+            {
+                "id": 10,
+                "title": "Privacy policy ",
+                "link": "privacy"
+            },
+            {
+                "id": 11,
+                "title": "Disclaimer",
+                "link": "disclaimer"
+            },
+            {
+                "id": 12,
+                "title": "Sitemap",
+                "link": "sitemap"
+            }
+        ],
+        "social": [
+            {
+                "id": 19,
+                "buttonText": "instagram",
+                "buttonLink": "instagram",
+                "buttonType": "External",
+                "buttonIcon": null
+            },
+            {
+                "id": 20,
+                "buttonText": "facebook",
+                "buttonLink": "facebook",
+                "buttonType": null,
+                "buttonIcon": null
+            }
+        ]
+    },
+    "meta": {}
+}

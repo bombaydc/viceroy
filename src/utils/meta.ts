@@ -2,8 +2,8 @@ import { ENV, SEO, WEBSITE } from "@/lib/constants";
 import type { Metadata } from "next";
 
 interface MetadataProps {
-    title?: string;
-    description?: string;
+    metaTitle?: string;
+    metaDescription?: string;
     og_title?: string;
     og_description?: string;
     og_type?: "website" | "article" | "book" | "profile" | "music.song" | "music.album" | "music.playlist" | "music.radio_station" | "video.movie" | "video.episode" | "video.tv_show" | "video.other" | undefined;
@@ -22,8 +22,8 @@ export const createMetadata = (metadata: MetadataProps = { og_type: "website" })
         ENV.FULL_DOMAIN_URL.includes(domain)
     );
     return {
-        title: metadata.title ?? WEBSITE.NAME,
-        description: metadata.description ?? WEBSITE.DEFAULT_DESCRIPTION,
+        title: metadata.metaTitle ?? WEBSITE.NAME,
+        description: metadata.metaDescription ?? WEBSITE.DEFAULT_DESCRIPTION,
 
         alternates: {
             canonical: metadata.canonical ?? `${ENV.FULL_DOMAIN_URL}/`,
@@ -41,8 +41,8 @@ export const createMetadata = (metadata: MetadataProps = { og_type: "website" })
             },
         },
         openGraph: {
-            title: metadata.og_title ?? metadata.title ?? WEBSITE.NAME,
-            description: metadata.og_description ?? metadata.description ?? WEBSITE.DEFAULT_DESCRIPTION,
+            title: metadata.og_title ?? metadata.metaTitle ?? WEBSITE.NAME,
+            description: metadata.og_description ?? metadata.metaDescription ?? WEBSITE.DEFAULT_DESCRIPTION,
             type: metadata.og_type ?? "website",
             url: metadata.og_url ?? `${ENV.FULL_DOMAIN_URL}/`,
             siteName: "Branded by Bombay DC",
@@ -57,8 +57,8 @@ export const createMetadata = (metadata: MetadataProps = { og_type: "website" })
         },
         twitter: {
             card: "summary_large_image",
-            title: metadata.tw_title ?? metadata.title ?? WEBSITE.NAME,
-            description: metadata.tw_description ?? metadata.description ?? WEBSITE.DEFAULT_DESCRIPTION,
+            title: metadata.tw_title ?? metadata.metaTitle ?? WEBSITE.NAME,
+            description: metadata.tw_description ?? metadata.metaDescription ?? WEBSITE.DEFAULT_DESCRIPTION,
             images: [metadata.tw_image ?? metadata.og_image ?? WEBSITE.DEFAULT_IMAGE],
         },
 

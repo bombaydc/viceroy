@@ -13,13 +13,18 @@ const ViewportProvider = () => {
       root.style.setProperty("--h-viewport", `${height}px`);
     };
 
-    setCSSVariables(); // set on mount
+    setCSSVariables();
 
     const resizeObserver = new ResizeObserver(setCSSVariables);
     resizeObserver.observe(document.documentElement);
 
+    window.addEventListener("resize", setCSSVariables);
+    window.addEventListener("orientationchange", setCSSVariables);
+
     return () => {
       resizeObserver.disconnect();
+      window.removeEventListener("resize", setCSSVariables);
+      window.removeEventListener("orientationchange", setCSSVariables);
     };
   }, []);
 

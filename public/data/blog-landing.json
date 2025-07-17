@@ -1,0 +1,27 @@
+{
+    "data": {
+        "id": 2,
+        "documentId": "sf8nu2hy7kspl68igd0z690h",
+        "createdAt": "2025-07-09T13:32:52.305Z",
+        "updatedAt": "2025-07-09T13:32:52.305Z",
+        "publishedAt": "2025-07-09T13:32:52.360Z",
+        "seo": {
+            "id": 4,
+            "metaTitle": "The Viceroy Journal",
+            "metaDescription": "Investing in the future, built on legacyInvesting in the future, built on legacyInvesting in the future, built on legacyInvesting in the future, built on legacy",
+            "keywords": null,
+            "metaRobots": null,
+            "metaViewport": null,
+            "canonicalURL": null,
+            "structuredData": null,
+            "openGraph": null
+        },
+        "blogLanding": {
+            "id": 2,
+            "preTitle": "Blog",
+            "Title": "The Viceroy Journal",
+            "Description": "Our blog is where vision meets voice."
+        }
+    },
+    "meta": {}
+}

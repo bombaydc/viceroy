@@ -1,28 +1,30 @@
 import type { Metadata } from "next";
-import { Montserrat, Playfair_Display } from "next/font/google"; 
+import { Montserrat, Playfair_Display } from "next/font/google";
 import { Providers } from "@/providers";
 import { AlertRenderer } from "@/components/core/alert";
 import { createMetadata } from "@/utils/meta";
 import "@/styles/main.scss";
-import "@/styles/layout/index.scss"; 
+import "@/styles/layout/index.scss";
 import Script from "next/script";
 import { headers } from 'next/headers';
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 
-const playfairDisplay = Playfair_Display({ 
+const playfairDisplay = Playfair_Display({
   variable: "--font-playfair-display",
   display: "swap",
-}); 
- 
+});
 
-const montserrat = Montserrat({ 
+
+const montserrat = Montserrat({
   variable: "--font-montserrat",
   display: "swap",
 });
 
 export const metadata: Metadata = createMetadata({
-  title: "Home Page",
-  description: "",
+  metaTitle: "Home Page",
+  metaDescription: "",
 });
 
 export default async function RootLayout({
@@ -34,7 +36,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" data-template="design-system-documentation">
-      <head> 
+      <head>
         <Script
           nonce={nonce}
           id="inline-secure"
@@ -46,9 +48,11 @@ export default async function RootLayout({
       </head>
       <body className={montserrat.className}>
         <Providers>
+          <Header />
           <main >
             {children}
-          </main> 
+          </main>
+          <Footer />
           <AlertRenderer />
         </Providers>
       </body>

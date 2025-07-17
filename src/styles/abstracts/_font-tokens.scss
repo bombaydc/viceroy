@@ -5,11 +5,11 @@ $font-sizes: (
   d-h4-playfair: (size: 36px, line: 1.2, weight: 500, spacing: -4%, family: secondary),
   d-h5-playfair: (size: 32px, line: 1.2, weight: 500, spacing: 0, family: secondary),
   d-h6-playfair: (size: 24px, line: 1.4, weight: 500, spacing: -4%, family: secondary),
-  d-b1-monsterrat: (size: 15px, line: 1.6, weight: 400, family: primary),
-  d-b2-monsterrat: (size: 18px, line: 1.2, weight: 500, family: primary),
-  d-label-monsterrat: (size: 12px, line: 1.2, weight: 500, family: primary),
-  d-cta-monsterrat: (size: 15px, line: 1.2, weight: 500, family: primary),
-  d-menu-monsterrat: (size: 14px, line: 1.2, weight: 500, family: primary),
+  d-b1-montserrat: (size: 15px, line: 1.6, weight: 400, family: primary),
+  d-b2-montserrat: (size: 18px, line: 1.2, weight: 500, family: primary),
+  d-label-montserrat: (size: 12px, line: 1.2, weight: 500, family: primary),
+  d-cta-montserrat: (size: 15px, line: 1.2, weight: 500, family: primary),
+  d-menu-montserrat: (size: 14px, line: 1.2, weight: 500, family: primary),
   heading-sm: (size: 1.5rem, line: 1.4, weight: 600, family: primary),
   body-lg:    (size: 1.125rem, line: 1.6, weight: 400, family: primary),
   body-md:    (size: 1rem, line: 1.6, weight: 400, family: primary),
@@ -17,4 +17,4 @@ $font-sizes: (
 );
 
 // Default token for global usage
-$default-font-token: d-b1-monsterrat;
+$default-font-token: d-b1-montserrat;

@@ -1,0 +1,46 @@
+@use '@scss-abstracts' as *;
+
+.ui-filter-tab {
+  &__container {
+    width: 100%;
+    max-width: var(--w-max);
+    padding-inline: var(--page-content-padding);
+    overflow: hidden;
+    @include media('<=md') {
+      overflow-x: auto; // allow horizontal scroll
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  &__list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-m);
+    border-block-end: 1px solid var(--border-standard);
+      @include media('<=md') {
+      gap: var(--space-xs);
+      min-width: max-content; // allow horizontal expansion
+    }
+  }
+
+  &__item {
+    flex-shrink: 0;
+  }
+
+  &__button {
+    @include font-style(d-b1-montserrat);
+    color: var(--text-black);
+    border-block-end: 1px solid transparent;
+    display: inline-block;
+    padding-block-end: var(--space-3xs);
+    cursor: pointer;
+    transition: color var(--transition-duration);
+    &.is-active,
+    &:hover {
+      border-block-end: 1px solid var(--text-primary);
+      color: var(--text-primary);
+    }
+  }
+}

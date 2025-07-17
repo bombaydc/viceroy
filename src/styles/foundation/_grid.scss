@@ -1,53 +1,64 @@
-@use "@scss-abstracts" as *;
+@use '@scss-abstracts' as *;
 @mixin define-colspans {
-	/* inner-colspan doesn't accomodate gutter spacing */
-	--inner-colspan1: calc(((var(--page-content-width) - var(--page-content-padding) * 2) - var(--grid-column-gap) * (var(--total-grid-columns) - 1)) / var(--total-grid-columns));
-	@for $i from 2 through 25 {
-		--inner-colspan#{$i}: calc(var(--inner-colspan1) * #{$i} + var(--grid-column-gap) * (#{$i} - 1));
-	}
-	/* outer-colspan accomodates gutter spacing */
-	--outer-colspan1: calc(var(--gap-compensated-page-content-width) / var(--total-grid-columns));
-	@for $i from 2 through 25 {
-		--outer-colspan#{$i}: calc(var(--outer-colspan1) * #{$i});
-	}
+  /* inner-colspan doesn't accomodate gutter spacing */
+  --inner-colspan1: calc(
+    (
+        (var(--page-content-width) - var(--page-content-padding) * 2) - var(--grid-column-gap) *
+          (var(--total-grid-columns) - 1)
+      ) /
+      var(--total-grid-columns)
+  );
+  @for $i from 2 through 25 {
+    --inner-colspan#{$i}: calc(
+      var(--inner-colspan1) * #{$i} + var(--grid-column-gap) * (#{$i} - 1)
+    );
+  }
+  /* outer-colspan accomodates gutter spacing */
+  --outer-colspan1: calc(var(--gap-compensated-page-content-width) / var(--total-grid-columns));
+  @for $i from 2 through 25 {
+    --outer-colspan#{$i}: calc(var(--outer-colspan1) * #{$i});
+  }
 }
 :root {
-	--page-content-width: var(--w-viewport);
-	--page-content-padding: var(--space-l);
-	--grid-column-gap: var(--space-2xs);
-	--grid-row-gap: var(--space-m);
-	/* container padding adjusted by half the gutter width */
-	--gap-compensated-page-content-padding: calc(var(--page-content-padding) - var(--grid-column-gap) / 2);
-	--gap-compensated-page-content-width: calc(var(--page-content-width) - 2 * var(--gap-compensated-page-content-padding));
-	@include define-colspans();
+  --page-content-width: var(--w-viewport);
+  --page-content-padding: var(--space-l);
+  --grid-column-gap: var(--space-3xs);
+  --grid-row-gap: var(--space-m);
+  /* container padding adjusted by half the gutter width */
+  --gap-compensated-page-content-padding: calc(
+    var(--page-content-padding) - var(--grid-column-gap) / 2
+  );
+  --gap-compensated-page-content-width: calc(
+    var(--page-content-width) - 2 * var(--gap-compensated-page-content-padding)
+  );
+  @include define-colspans();
 }
-@include media("<sm") {
-	:root {
-		--total-grid-columns: 4;
-		--page-content-padding: var(--space-2xs);
-		--grid-column-gap: var(--space-2xs);
-		--grid-row-gap: var(--space-m);
-	}
+@include media('<sm') {
+  :root {
+    --total-grid-columns: 4;
+    --page-content-padding: var(--space-2xs);
+    --grid-column-gap: var(--space-3xs);
+    --grid-row-gap: var(--space-m);
+  }
 }
-@include media(">=sm", "<md") {
-	:root {
-		--total-grid-columns: 10;
-		--page-content-padding: var(--space-2xs);
-	}
+@include media('>=sm', '<md') {
+  :root {
+    --total-grid-columns: 10;
+  }
 }
-@include media(">=md") {
-	:root {
-		--total-grid-columns: 12;
-	}
+@include media('>=md') {
+  :root {
+    --total-grid-columns: 12;
+  }
 }
-@include media(">=maxwidth") {
-	:root {
-		--total-grid-columns: 20;
-		--page-content-width: min(var(--w-viewport), var(--w-max));
-	}
+@include media('>=maxwidth') {
+  :root {
+    // --total-grid-columns: 20;
+    --page-content-width: min(var(--w-viewport), var(--w-max));
+  }
 }
-@include media(">maxwidth") {
-	:root {
-		--page-content-padding: 0px;
-	}
-}
+// @include media(">maxwidth") {
+// 	:root {
+// 		--page-content-padding: 0px;
+// 	}
+// }

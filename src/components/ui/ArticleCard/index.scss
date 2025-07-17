@@ -1,0 +1,59 @@
+@use '@scss-abstracts' as *;
+
+.ui-article-card {
+  text-decoration: none;
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    column-gap: var(--grid-column-gap);
+    row-gap: var(--space-s);
+    @include media('<md') {
+    grid-template-columns: 1fr;
+    }
+  }
+
+  &__image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 396/260; 
+
+    @include media('<md') {
+      width: 100%;
+    }
+  }
+
+  &__content { 
+    display: flex;
+    flex-direction: column;
+    @include media('<md') {
+      width: 100%;
+    }
+  }
+
+  &__label {
+    @include font-style(d-b1-montserrat);
+    color: var(--text-secondary);
+    margin-block-end: var(--space-3xs);
+    @include media('<md') {
+      @include font-style(d-label-montserrat);
+    }
+  }
+  &__title {
+    @include font-style(d-b2-montserrat);
+    color: var(--bg-subtle);
+    max-width: var(--inner-colspan6);
+    width: 100%;
+    @include media('<md') {
+      @include font-style(d-b1-montserrat);
+      max-width: 100%;
+      width: 95%;
+    }
+  }
+  &__button {
+    margin-block-start: auto;
+    @include media('<md') {
+      margin-block-start: var(--space-s);
+    }
+  }
+}

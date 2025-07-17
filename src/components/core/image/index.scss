@@ -13,4 +13,7 @@
 */
 .core-img-loader {
 	@include media-wrapper;
+	&.is-loaded::before { 
+		display: none;
+	}
 }

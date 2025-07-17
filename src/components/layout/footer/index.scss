@@ -1,0 +1,102 @@
+@use '@scss-abstracts' as *;
+
+.ui-footer {
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  padding-inline: var(--page-content-padding);
+  &__container {
+    width: 100%;
+    max-width: var(--inner-colspan8);
+    margin: 0 auto;
+    padding-block-start: var(--space-3xl);
+    padding-block-end: var(--space-7xl);
+    display: grid;
+    gap: var(--space-3xl);
+
+    @include media('<=md') {
+      width: 100%;
+      max-width: 100%;
+      padding-block: var(--space-2xl);
+    }
+
+    @include media('<sm') {
+      gap: var(--space-l);
+    }
+  }
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-column-gap);
+    @include media('<=sm') {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: var(--space-2xl);
+    }
+  }
+  &__menus {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-column-gap);
+  }
+
+  &__menu-list {
+    display: grid;
+    gap: var(--space-3xs);
+  }
+  &__menu-link {
+    @include font-style(d-menu-montserrat);
+    color: var(--text-secondary);
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+
+  &__logo {
+    aspect-ratio: 196/46;
+    width: 196px;
+    object-fit: contain;
+    @include media('<=md') {
+      width: 184px;
+    }
+    &-anchor {
+      display: inline-block;
+      width: fit-content;
+      @include media('>sm') {
+        margin-inline-start: auto;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-s);
+    @include media('<sm') {
+      column-gap: var(--space-3xs);
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    @include media('<sm') {
+      flex-direction: unset;
+      flex-wrap: wrap;
+      row-gap: var(--space-2xl);
+    }
+  }
+  &__copyright {
+    @include font-style(d-label-montserrat);
+    @include media('>=sm') {
+      margin-inline-start: auto;
+    }
+  }
+  &__link {
+    @include font-style(d-label-montserrat);
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+}

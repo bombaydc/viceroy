@@ -22,7 +22,7 @@ $core-dot-loader-vars: (
 		DOT-GAP: 6px,
 
 		//visual - LIKELY TO CHANGE
-		DOT-COLOR: #305ad4,
+		DOT-COLOR: var(--text-primary),
 
 		//motion - UNLIKELY TO CHANGE
 		MOTION-DURATION: var(--duration-800),

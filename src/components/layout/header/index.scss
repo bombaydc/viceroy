@@ -1,0 +1,18 @@
+@use '@scss-abstracts' as *;
+
+.ui-header{
+    &__wrapper {
+        width: 100%;
+        max-width: var(--w-max);
+        margin: 0 auto; 
+        padding-inline: var(--page-content-padding); 
+        padding-block-start: var(--space-l);
+        padding-block-end: var(--space-2xs);
+    }
+    &__logo-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        width: 134px;
+    }
+}

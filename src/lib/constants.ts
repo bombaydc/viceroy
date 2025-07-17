@@ -1,10 +1,10 @@
 export const WEBSITE = {
-    NAME: "Branded by Bombay DC",
-    DOMAIN: "https://wearebranded.in",
-    DEFAULT_TITLE: "Branded by Bombay DC - Brand Design for a New India",
+    NAME: "HOME - Viceroy Properties",
+    DOMAIN: "https://www.viceroyproperties.in/",
+    DEFAULT_TITLE: "Viceroy Properties - Think different, build different.",
     DEFAULT_DESCRIPTION:
-        "Explore how the Branded A Bombay DC company crafts future-forward brand identities for modern India. See our process, strategy, and design thinking in action.",
-    DEFAULT_IMAGE: "/assets/shared/meta/share/branded-logo.jpg",
+        "Viceroy Properties - Think different, build different.",
+    DEFAULT_IMAGE: "/assets/shared/meta/share/0.jpg",
 };
 
 export const ENV = {
@@ -13,5 +13,5 @@ export const ENV = {
 };
 
 export const SEO = {
-    INDEXABLE_DOMAINS: ["wearebranded.in"],
+    INDEXABLE_DOMAINS: ["viceroyproperties.in"],
 };
