@@ -6,7 +6,7 @@
     width: 100%;
     max-width: var(--inner-colspan8);
     margin: 0 auto;
-    padding-block-start: var(--space-2xl); 
+    padding-block-start: var(--space-2xl);
     color: var(--text-black);
 
     @include media('<=md') {
@@ -47,7 +47,15 @@
     @include font-style(d-b1-montserrat);
   }
 
-  .ui-rich-text-content {
+  &__banner {
+    aspect-ratio: 790/529;
+    width: 100%;
+    display: block;
+    position: relative;
+  }
+  &__wrapper {
+    display: grid;
+    gap: var(--space-l);
     padding-block-start: var(--space-3xl);
     padding-block: var(--space-2xl);
     @include media('<md') {

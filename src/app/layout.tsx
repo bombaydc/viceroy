@@ -46,7 +46,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={montserrat.className}>
+      <body className={montserrat.className + " " + playfairDisplay.className}>
         <Providers>
           <Header />
           <main >

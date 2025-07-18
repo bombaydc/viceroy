@@ -1,23 +1,27 @@
 import RichTextContent from "@/components/ui/ui-rich-text-content";
-import './index.scss';
 import ShareButton from "@/components/core/share";
-import Stagger from "@/components/motion/stagger";
+import Image from "@/components/core/image";
+import './index.scss';
 
-const ArticleDetails = ({ title = '', description = '', content = '', label = '' }) => {
+const ArticleDetails = ({ title = '', description = '', content = '', label = '', image = "" }) => {
+    let index = 0;
     return (
-        <Stagger as={"section"} className='ui-article-details' >
+        <section data-stagger-motion-observer className='ui-article-details' >
             <div className='ui-article-details__container'>
                 <div className="ui-article-details__content">
-                    {label && <p className='ui-article-details__label'>{label}</p>}
-                    <h1 className={`ui-article-details__title`}>{title}</h1>
-                    <p className={`ui-article-details__description`}>{description}</p>
+                    {label && <p className='ui-article-details__label' data-stagger-motion-index={index++} data-stagger-motion-type="sm">{label}</p>}
+                    <h1 className={`ui-article-details__title`} data-stagger-motion-index={index++} data-stagger-motion-type="sm">{title}</h1>
+                    <p className={`ui-article-details__description`} data-stagger-motion-index={index++} data-stagger-motion-type="sm">{description}</p>
                     <ShareButton id="share-option1" title={title} description={description} />
                 </div>
-                {content ? <RichTextContent content={content} /> : ''}
+                <div className="ui-article-details__wrapper" data-stagger-motion-index={index++} data-stagger-motion-type="sm">
+                    <Image src={image} width={795} height={529} className="ui-article-details__banner" alt={title} priority />
+                    {content ? <RichTextContent content={content} /> : ''}
+                </div>
                 <ShareButton id="share-option2" title={title} description={description} />
-                
+
             </div>
-        </Stagger>
+        </section>
     )
 }
 export default ArticleDetails

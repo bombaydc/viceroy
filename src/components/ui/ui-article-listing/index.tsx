@@ -86,11 +86,11 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
         } finally {
             setLoading(false);
         }
-    }, [type]);
+    }, [type, endpoint]);
 
     useEffect(() => {
         fetchInitialBlogs();
-    }, [type]);
+    }, [type, endpoint]);
 
     return (
         <section data-stagger-motion-observer className={cn("ui-article-listing", className)}>

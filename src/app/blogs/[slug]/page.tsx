@@ -49,26 +49,10 @@ const page = async (context: { params: { slug: string } }) => {
   }
 
   const related = await callApi("blogs");
-  const { medias } = related.data;
-  const items = [
-    {
-      title: 'Home',
-      href: '/'
-    },
-    {
-      title: 'Blogs',
-      href: '/blogs'
-    },
-    {
-      title: blogData.title,
-      href: `/blogs/${slug}`,
-      isCurrentPage: true
-    }
-  ]
+  const { medias } = related.data; 
   return (
-    <>
-      <Breadcrumbs items={items} />
-      <ArticleDetails title={blogData.title} content={blogData.details} description={blogData.shortDesc} label={blogData.publisher} />
+    <> 
+      <ArticleDetails image={blogData.desktopimage.url} title={blogData.title} content={blogData.details} description={blogData.shortDesc} label={blogData.publisher} />
       <RealatedArticle title='Related Articles' data={medias ?? []} />
     </>
   )

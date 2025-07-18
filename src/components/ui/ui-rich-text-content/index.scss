@@ -151,9 +151,9 @@
     & + ol,
     & + ul {
       margin-top: var(--space-m);
-      @include media('<md') {
-        margin-top: var(--space-s);
-      }
+      // @include media('<md') {
+      //   margin-top: var(--space-s);
+      // }
     }
   }
 

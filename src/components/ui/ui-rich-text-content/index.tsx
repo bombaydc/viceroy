@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { cn } from '@/utils/cn';
 import './index.scss';
 
-const RichTextContent = ({ content, className = '' }: { content: string, className?: string }) => {
+const RichTextContent = ({ content, className = '' ,...props}: { content: string, className?: string }) => {
   useEffect(() => {
     if (typeof document != "undefined") {
       const container = document.querySelector('.ui-rich-text-content');
@@ -24,7 +24,7 @@ const RichTextContent = ({ content, className = '' }: { content: string, classNa
   }, [content]);
 
   return (
-    <div className={cn('ui-rich-text-content', className)} dangerouslySetInnerHTML={{ __html: content }} />
+    <div className={cn('ui-rich-text-content', className)} dangerouslySetInnerHTML={{ __html: content }} {...props}/>
   );
 };
 

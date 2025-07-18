@@ -27,6 +27,7 @@
       &__list {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        gap: var(--grid-column-gap);
         @include media('<md') {
           grid-template-columns: 1fr;
         }
@@ -36,13 +37,7 @@
           &:nth-child(2),
           &:first-child {
             padding-block-start: 0;
-          } 
-          &:nth-child(odd) {
-            padding-inline-end: var(--space-nano);
-          }
-          &:nth-child(even) {
-            padding-inline-start: var(--space-nano);
-          }
+          }  
         }
       }
     }

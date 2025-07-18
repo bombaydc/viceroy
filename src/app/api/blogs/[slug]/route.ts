@@ -1,12 +1,17 @@
-import { fetchData } from "../@/utils/fetchData";
-import { sendResponse } from "../@/utils/response";
+import { fetchData } from "@/utils/fetchData";
+import { sendResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
 
 
 interface BlogItem {
     slug: string;
-    type: string;
-    [key: string]: any;
+    type: string; 
+    publishedAt: string;
+    publisher: string;
+    title: string;
+    desktopimage: {
+        url: string;
+    };
 }
 
 export async function GET(_: NextRequest, context: { params: { slug: string } }) {

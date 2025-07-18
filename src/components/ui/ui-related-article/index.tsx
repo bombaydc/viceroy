@@ -1,7 +1,6 @@
 import ArticleCard from "@/components/ui/ui-article-card";
 import './index.scss';
-import { Slider, SliderContent, SliderIndicator, SliderItem } from "@/components/core/slider";
-import Stagger from "@/components/motion/stagger";
+import { Slider, SliderContent, SliderIndicator, SliderItem } from "@/components/core/slider"; 
 interface RealatedArticleProps {
     title: string;
     data: any[];
@@ -13,7 +12,7 @@ const RealatedArticle: React.FC<RealatedArticleProps> = ({ title, data }) => {
         return null;
     }
     return (
-        <Stagger as={"section"} className="ui-related-article">
+        <section data-stagger-motion-observer className="ui-related-article">
             <div className="ui-related-article__container"> 
                 <h4 className="ui-related-article__title" data-stagger-motion-index={1} data-stagger-motion-type="md">
                     {title}
@@ -39,7 +38,7 @@ const RealatedArticle: React.FC<RealatedArticleProps> = ({ title, data }) => {
                     </Slider>
                 </div>
             </div>
-        </Stagger>
+        </section>
     )
 }
 

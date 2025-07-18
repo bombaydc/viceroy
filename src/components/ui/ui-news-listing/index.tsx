@@ -5,10 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import { callApi } from "@/utils/apiClient";
 import Loader from "@/components/core/loader";
 import { cn } from "@/utils/cn";
-import "./index.scss"; 
+import "./index.scss";
 
 interface NewsListingProps {
-    options?: { label: string; value: string }[];
     className?: string;
     medias?: any[];
     type?: string;
@@ -21,7 +20,7 @@ interface NewsListingProps {
     };
 }
 
-const NewsListing: React.FC<NewsListingProps> = ({ options = [], medias = [], meta, className = "", endpoint = "blogs" }) => {
+const NewsListing: React.FC<NewsListingProps> = ({ medias = [], meta, className = "", endpoint = "blogs" }) => {
     const [blogList, setBlogList] = useState<any[]>(medias);
     const [page, setPage] = useState(meta?.page || 1);
     const [totalPages, setTotalPages] = useState(meta?.totalPages || 1);
@@ -71,7 +70,7 @@ const NewsListing: React.FC<NewsListingProps> = ({ options = [], medias = [], me
     };
 
     return (
-        <section data-stagger-motion-observer  className={cn("ui-news-listing", className)}>
+        <section data-stagger-motion-observer className={cn("ui-news-listing", className)}>
             <div className="ui-news-listing__container">
                 {
                     blogList.length === 0 && !loading && (
@@ -82,7 +81,7 @@ const NewsListing: React.FC<NewsListingProps> = ({ options = [], medias = [], me
                 }
                 <ul className="ui-news-listing__list">
                     {blogList.map((blog: any, index: number) => (
-                        <li key={index} className="ui-news-listing__item"  data-stagger-motion-index={1 + index} data-stagger-motion-type="md">
+                        <li key={index} className="ui-news-listing__item" data-stagger-motion-index={1 + index} data-stagger-motion-type="md">
                             <ArticleCard
                                 title={blog.title}
                                 href={blog.link}
@@ -90,7 +89,7 @@ const NewsListing: React.FC<NewsListingProps> = ({ options = [], medias = [], me
                                 hasImage={false}
                                 image={blog.image}
                                 isExternal={blog.isExternal}
-                                
+
                             />
                         </li>
                     ))}

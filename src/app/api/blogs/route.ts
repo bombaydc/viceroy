@@ -6,8 +6,13 @@ import { NextRequest } from "next/server";
 
 interface BlogItem {
     slug: string;
-    type: string;
-    [key: string]: any;
+    type: string; 
+    publishedAt: string;
+    publisher: string;
+    title: string;
+    desktopimage: {
+        url: string;
+    };
 }
 
 export async function GET(req: NextRequest) {
@@ -23,7 +28,7 @@ export async function GET(req: NextRequest) {
             return sendResponse(404, "Blog data not found or invalid format");
         }
         const blogs: BlogItem[] = data.data;
-        let filteredBlogs = type === "all" ? blogs : blogs.filter((blog) => blog.type.toLowerCase() === type);
+        const filteredBlogs = type === "all" ? blogs : blogs.filter((blog) => blog.type.toLowerCase() === type);
         const uniqueBlogTypes = Array.from(
             new Set(blogs.map((blog) => blog.type.toLowerCase()))
         );
