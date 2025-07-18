@@ -39,17 +39,23 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, threshold = ITEM_THRES
         setCollapsed(false);
     };
 
-    const renderItem = (item: BreadcrumbItem, key: string | number) => (
+    const renderItem = (item: BreadcrumbItem, key: string | number, isLast = false) => (
         <li key={key} className="core-breadcrumbs__list-item">
-            <Link href={item.href} className={cn(
-                "core-breadcrumbs__crumb",
-                "core-breadcrumbs__crumb--link",
-                item.isCurrentPage && "core-breadcrumbs__crumb--current"
-            )} aria-current={item.isCurrentPage ? "page" : undefined}>
+            <Link
+                href={item.href}
+                className={cn(
+                    "core-breadcrumbs__crumb",
+                    "core-breadcrumbs__crumb--link",
+                    item.isCurrentPage && "core-breadcrumbs__crumb--current"
+                )}
+                aria-current={item.isCurrentPage ? "page" : undefined}
+            >
                 {item.title}
+                {!isLast && <span className="core-breadcrumbs__separator">&nbsp;/&nbsp;</span>}
             </Link>
         </li>
     );
+
 
     const renderCollapsedItems = () => {
         const lastSecondLink = items[items.length - 2];
@@ -66,8 +72,8 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, threshold = ITEM_THRES
                         ...
                     </button>
                 </li>
-                {renderItem(lastSecondLink, "lastSecondLink")}
-                {renderItem(last, "last")}
+                {renderItem(lastSecondLink, "lastSecondLink", false)}
+                {renderItem(last, "last", true)}
             </>
         );
     };
@@ -76,7 +82,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, threshold = ITEM_THRES
         <div className={cn("core-breadcrumbs", className)}>
             <nav className="core-breadcrumbs__nav" aria-label="Breadcrumb">
                 <ol className="core-breadcrumbs__list">
-                    {collapsed ? renderCollapsedItems() : items.map((item, idx) => renderItem(item, idx))}
+                    {collapsed ? renderCollapsedItems() : items.map((item, idx) => renderItem(item, idx, idx === items.length - 1))}
                 </ol>
             </nav>
         </div>

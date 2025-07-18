@@ -1,0 +1,51 @@
+@use '@scss-abstracts' as *;
+
+.ui-article-listing {
+  padding-block-end: var(--space-7xl);
+  @include media('<md') {
+    padding-block-end: var(--space-3xl);
+  }
+  &__container {
+    width: 100%;
+    max-width: var(--w-max);
+    padding-inline: var(--page-content-padding);
+  }
+  &__item {
+    padding-block: var(--space-l);
+    border-bottom: 1px solid var(--border-standard);
+    @include media('<md') {
+      padding-block: var(--space-m);
+    }
+  }
+
+  &__loading {
+    position: relative;
+    height: 120px;
+  }
+
+  &.--grid {
+    .ui-article-listing {
+      &__list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        @include media('<md') {
+          grid-template-columns: 1fr;
+        }
+      }
+      &__item {
+        @include media('>md') {
+          &:nth-child(2),
+          &:first-child {
+            padding-block-start: 0;
+          } 
+          &:nth-child(odd) {
+            padding-inline-end: var(--space-nano);
+          }
+          &:nth-child(even) {
+            padding-inline-start: var(--space-nano);
+          }
+        }
+      }
+    }
+  }
+}

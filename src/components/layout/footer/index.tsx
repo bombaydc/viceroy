@@ -27,13 +27,16 @@ const Footer = async () => {
                         </ul>
                         <ul className='ui-footer__menu-list'>
                             <li className='ui-footer__menu-item'>
-                                <Link href={'/'} className='ui-footer__menu-link'>Home</Link>
+                                <Link href={'/'} className='ui-footer__menu-link'>Projects</Link>
                             </li>
                             <li className='ui-footer__menu-item'>
-                                <Link href={'/'} className='ui-footer__menu-link'>About</Link>
+                                <Link href={'/'} className='ui-footer__menu-link'>SAVĀNA</Link>
                             </li>
                             <li className='ui-footer__menu-item'>
-                                <Link href={'/'} className='ui-footer__menu-link'>Careers</Link>
+                                <Link href={'/'} className='ui-footer__menu-link'>PRIVÉ</Link>
+                            </li>
+                            <li className='ui-footer__menu-item'>
+                                <Link href={'/'} className='ui-footer__menu-link'>VERSOVA</Link>
                             </li>
                         </ul>
 

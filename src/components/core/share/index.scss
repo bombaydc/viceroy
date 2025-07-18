@@ -1,0 +1,116 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+
+
+@mixin close-options {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+@mixin open-options {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.core-btn-share {
+  position: relative;
+  width: fit-content;
+
+  .core-btn {
+    position: relative;
+    z-index: 1;
+    gap: var(--space-macro);
+
+    &:not([aria-expanded='true']) + .core-btn-share__options {
+      @include close-options;
+    }
+
+    &[aria-expanded='true'] + .core-btn-share__options {
+      @include open-options;
+    }
+  }
+}
+
+.core-btn-share__options {
+  width: 296px;
+  position: absolute;
+  overflow: hidden;
+  background-color: var(--white);
+  border: 1px solid var(--border-standard); 
+  z-index: z('share-popover');
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xs);
+  padding: var(--space-2xs);
+  transition-property: opacity, transform;
+  @include motion.modal-transition;
+
+  @include media('>=sm') {
+    box-shadow: -1px 3px 3px 0px rgba(0, 0, 0, 0.1);
+  }
+  &.-top {
+    bottom: calc(100% + var(--space-4xs));
+    left: 0;
+  }
+
+  &.-bottom {
+    top: calc(100% + var(--space-4xs));
+    left: 0;
+  }
+
+  &.-right {
+    left: unset;
+    right: 0;
+  }
+}
+
+.core-btn-share__option-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--space-macro);
+  @include font-style(d-label-montserrat);
+  color: var(--text-secondary);
+  fill: var(--text-secondary);
+  p {
+    font: inherit;
+    color: inherit;
+  }
+  &-icon {
+    width: 24px;
+    height: 24px;
+    path {
+      fill: var(--text-secondary);
+    }
+    @include media('<xxs') {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      color: var(--text-black);
+      .core-btn-share__option-btn-icon path {
+        fill: var(--text-black);
+      }
+    }
+  }
+}

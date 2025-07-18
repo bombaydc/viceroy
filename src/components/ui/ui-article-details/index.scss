@@ -1,0 +1,58 @@
+@use '@scss-abstracts' as *;
+
+.ui-article-details {
+  padding-inline: var(--page-content-padding);
+  &__container {
+    width: 100%;
+    max-width: var(--inner-colspan8);
+    margin: 0 auto;
+    padding-block-start: var(--space-2xl);
+    padding-block-end: var(--space-3xl);
+    color: var(--text-black);
+
+    @include media('<=md') {
+      width: 100%;
+      max-width: 100%;
+      padding-block: var(--space-2xl);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    @include media('<md') {
+      gap: var(--space-2xs);
+    }
+
+    .core-btn-share {
+      margin-block-start: calc(var(--space-l) - var(--space-3xs));
+      @include media('<md') {
+        margin-block-start: var(--space-2xs);
+      }
+    }
+  }
+
+  &__label {
+    @include font-style(d-b1-montserrat);
+  }
+
+  &__title {
+    @include font-style(d-h2-playfair);
+    @include media('<md') {
+      @include font-style(d-h6-playfair);
+    }
+  }
+
+  &__description {
+    @include font-style(d-b1-montserrat);
+  }
+
+  .ui-rich-text-content {
+    padding-block-start: var(--space-3xl);
+    padding-block: var(--space-2xl);
+    @include media('<md') {
+      padding-block-end: var(--space-m);
+    }
+  }
+}

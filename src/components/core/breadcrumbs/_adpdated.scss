@@ -1,0 +1,47 @@
+@use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion;
+/*
+* order of properties -
+* 1. root variables,
+* 2. layout,
+* 3. size, 
+* 4. spacing, 
+* 5. visual (colors, backgrounds, borders, overflows),
+* 6. typography,
+* 7. motion,
+* 8. states
+*/
+.core-breadcrumbs {
+  .core-breadcrumbs__nav {
+    max-width: var(--w-max);
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--page-content-padding);
+    padding-block: var(--space-xs);
+  }
+  .core-breadcrumbs__crumb {
+    //visual - LIKELY TO CHANGE
+
+    //typography - LIKELY TO CHANGE
+    @include font-style(d-label-montserrat);
+    @include lineclamp(1);
+
+    //motion - LIKELY TO CHANGE
+    @include motion.button-hover-transition() {
+      color: #212121;
+    }
+  }
+
+  &__list-item {
+    color: var(--text-secondary);
+
+    &:not(:first-child) {
+      color: var(--text-black);
+    }
+  }
+
+  .core-breadcrumbs__crumb--current-page {
+    //visual - LIKELY TO CHANGE
+    color: var(--text-black);
+  }
+}

@@ -1,4 +1,5 @@
 @use '@scss-abstracts' as *;
+@use '@scss-motion-abstracts' as motion; 
 
 .ui-article-card {
   text-decoration: none;
@@ -9,21 +10,21 @@
     column-gap: var(--grid-column-gap);
     row-gap: var(--space-s);
     @include media('<md') {
-    grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
   }
 
   &__image {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 396/260; 
+    aspect-ratio: 396/260;
 
     @include media('<md') {
       width: 100%;
     }
   }
 
-  &__content { 
+  &__content {
     display: flex;
     flex-direction: column;
     @include media('<md') {
@@ -54,6 +55,24 @@
     margin-block-start: auto;
     @include media('<md') {
       margin-block-start: var(--space-s);
+    }
+  }
+
+  &--news-card {
+    .ui-article-card__wrapper {
+      grid-template-columns: 1fr;
+    }
+    .ui-article-card__title {
+      width: var(--w-text-content);
+    }
+    .ui-article-card__button {
+      margin-block-start: var(--space-l);
+    }
+
+    @include motion.button-hover-custom-transition() {
+      .core-button__icon {
+        animation-name: standard-tertiary-link-hover-keyframes;
+      }
     }
   }
 }

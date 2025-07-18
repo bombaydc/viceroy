@@ -1,14 +1,15 @@
 import Link from "next/link";
-import './index.scss';
 import { cn } from "@/utils/cn";
-import { MouseEvent as ReactMouseEvent  } from "react";
+import { MouseEvent as ReactMouseEvent } from "react";
+import './index.scss';
 
 interface FilterTabProps {
     options: { label: string, value: string }[];
     activeValue?: string;
+    props?: React.HTMLAttributes<HTMLDivElement>;
 }
 
-const FilterTab: React.FC<FilterTabProps> = ({ options = [], activeValue = "all" }) => {
+const FilterTab: React.FC<FilterTabProps> = ({ options = [], activeValue = "all", props }) => {
     if (options.length === 0) { return null; }
 
     const handleClick = (e: ReactMouseEvent<HTMLAnchorElement>) => {
@@ -18,7 +19,7 @@ const FilterTab: React.FC<FilterTabProps> = ({ options = [], activeValue = "all"
         }
     };
     return (
-        <div className="ui-filter-tab">
+        <div className="ui-filter-tab" {...props}>
             <div className="ui-filter-tab__container">
                 <ul className="ui-filter-tab__list">
                     {
@@ -33,7 +34,7 @@ const FilterTab: React.FC<FilterTabProps> = ({ options = [], activeValue = "all"
                     }
                 </ul>
             </div>
-        </div >
+        </div>
     )
 }
 

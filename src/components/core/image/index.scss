@@ -16,4 +16,8 @@
 	&.is-loaded::before { 
 		display: none;
 	}
+
+	img{
+		@include absolute-cover;
+	}
 }

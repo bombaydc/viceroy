@@ -6,11 +6,13 @@
 	--w-max: 1600px;
 	--h-header: 88px; 
 	--h-stickyMenu: 63px;
+	--w-text-content:85%;
 }
 @include media("<md") {
 	:root {
 		--w-max: 100%;
 		--h-header: 80px; 
+		--w-text-content:90%;
 	}
 }
  

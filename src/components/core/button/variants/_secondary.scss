@@ -7,19 +7,19 @@
 $standard-secondary-btn-vars: (
   default: (
     //size
-    MIN-INLINE-SIZE: 120px,
-    BLOCK-SIZE: 44px,
-    ICON-SIZE: 18px,
+    MIN-INLINE-SIZE: 100px,
+    BLOCK-SIZE: 42px,
+    ICON-SIZE: 16px,
     //spacing
     PADDING-INLINE: var(--space-xs),
     TEXT-ICON-GAP: var(--space-macro),
     //visual (colors, backgrounds, borders, overflows)
-    BORDER-DEFAULT-COLOR: #e1e1e3,
+    BORDER-DEFAULT-COLOR: var(--text-black),
     BG-DEFAULT-COLOR: white,
-    BG-HOVER-COLOR: #284fc3,
+    BG-HOVER-COLOR: var(--text-black),
     BG-DISABLED-COLOR: #9ea1ad,
     //typography
-    TEXT-DEFAULT-COLOR: #212121,
+    TEXT-DEFAULT-COLOR: var(--text-black),
     TEXT-HOVER-COLOR: white,
     TEXT-DISABLED-COLOR: white,
   ),
@@ -71,8 +71,7 @@ $standard-secondary-btn-vars: (
   padding-inline: var(--STANDARD-SECONDARY-BTN-PADDING-INLINE);
   gap: var(--STANDARD-SECONDARY-BTN-TEXT-ICON-GAP);
 
-  //visual (colors, backgrounds, borders, overflows) - CHANGEME
-  border-radius: var(--radius-1000);
+  //visual (colors, backgrounds, borders, overflows) - CHANGEME 
   border: 1px solid var(--STANDARD-SECONDARY-BTN-BORDER-DEFAULT-COLOR);
   background-color: var(--STANDARD-SECONDARY-BTN-BG-DEFAULT-COLOR);
   color: var(--STANDARD-SECONDARY-BTN-TEXT-DEFAULT-COLOR);
@@ -113,11 +112,7 @@ $standard-secondary-btn-vars: (
       color: currentColor;
 
       //typography - CHANGEME
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px; /* 142.857% */
-      letter-spacing: -0.42px;
+      @include font-style(d-cta-montserrat);
       text-align: center;
     }
   }

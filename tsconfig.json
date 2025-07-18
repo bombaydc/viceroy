@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,11 +23,25 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@scss-motion-abstracts": ["./src/styles/motion/abstracts/"],
-      "@scss-abstracts": ["./src/styles/abstracts/"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@scss-motion-abstracts": [
+        "./src/styles/motion/abstracts/"
+      ],
+      "@scss-abstracts": [
+        "./src/styles/abstracts/"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts",
+    "types",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

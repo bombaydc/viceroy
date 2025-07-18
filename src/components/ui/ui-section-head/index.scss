@@ -7,6 +7,9 @@
   padding-inline: var(--page-content-padding);
   padding-block-start: var(--space-3xl);
   padding-block-end: var(--space-2xl);
+  @include media('<md') {
+    padding-block-start: var(--space-2xl);
+  }
   &__container {
     width: var(--inner-colspan8);
     display: flex;
@@ -18,8 +21,7 @@
 
   &__label {
     @include font-style(d-label-montserrat);
-    color: var(--bg-base);
-    opacity: 0.55;
+    color: var(--text-secondary);
     @include media('<md') {
       @include font-style(d-cta-montserrat);
     }
@@ -41,6 +43,5 @@
   &__desc {
     @include font-style(d-b1-montserrat);
     color: var(--bg-base);
-    opacity: 0.55;
   }
 }

@@ -1,17 +1,21 @@
 "use client";
 
-import ArticleCard from "@/components/ui/ArticleCard";
-import FilterTab from "@/components/ui/FilterTab";
+import ArticleCard from "@/components/ui/ui-article-card";
+import FilterTab from "@/components/ui/ui-filter-tab";
 import "./index.scss";
 import { formateDate } from "@/utils/formateDate";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { callApi } from "@/utils/apiClient";
 import Loader from "@/components/core/loader";
+import { cn } from "@/utils/cn";
+import Stagger from "@/components/motion/stagger";
 
-interface BlogListingProps {
-    options: { label: string; value: string }[];
-    blogs?: any[];
+interface ArticleListingProps {
+    options?: { label: string; value: string }[];
+    className?: string;
+    medias?: any[];
     type?: string;
+    endpoint?: string;
     meta?: {
         total: number;
         page: number;
@@ -20,8 +24,8 @@ interface BlogListingProps {
     };
 }
 
-const BlogListing: React.FC<BlogListingProps> = ({ options = [], blogs = [], meta, type = "all" }) => {
-    const [blogList, setBlogList] = useState<any[]>(blogs);
+const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = [], meta, type = "all", className = "", endpoint = "blogs" }) => {
+    const [blogList, setBlogList] = useState<any[]>(medias);
     const [page, setPage] = useState(meta?.page || 1);
     const [totalPages, setTotalPages] = useState(meta?.totalPages || 1);
     const [loading, setLoading] = useState(false);
@@ -55,10 +59,10 @@ const BlogListing: React.FC<BlogListingProps> = ({ options = [], blogs = [], met
         setLoading(true);
         try {
             const nextPage = page + 1;
-            const res = await callApi("blogs", {
+            const res = await callApi(endpoint, {
                 params: { page: nextPage, type },
             });
-            const newBlogs = res.data.blogs;
+            const newBlogs = res.data.medias;
             setBlogList(prev => [...prev, ...newBlogs]);
             setPage(nextPage);
             setTotalPages(res.data.meta.totalPages);
@@ -73,8 +77,8 @@ const BlogListing: React.FC<BlogListingProps> = ({ options = [], blogs = [], met
         setLoading(true);
 
         try {
-            const res = await callApi("blogs", { params: { page: 1, type } });
-            setBlogList(res.data.blogs);
+            const res = await callApi(endpoint, { params: { page: 1, type } });
+            setBlogList(res.data.medias);
             setPage(1);
             setTotalPages(res.data.meta.totalPages);
         } catch (err) {
@@ -89,37 +93,41 @@ const BlogListing: React.FC<BlogListingProps> = ({ options = [], blogs = [], met
     }, [type]);
 
     return (
-        <section className="ui-blog-listing">
-            <FilterTab activeValue={type} options={options} />
-            <div className="ui-blog-listing__container">
+        <Stagger as={"section"} className={cn("ui-article-listing", className)}>
+            <div data-stagger-motion-index={1} data-stagger-motion-type="sm" >
+                <FilterTab activeValue={type} options={options} />
+            </div>
+            <div className="ui-article-listing__container">
                 {
                     blogList.length === 0 && !loading && (
-                        <div className="ui-blog-listing__empty">
+                        <div className="ui-article-listing__empty">
                             <p>No blogs found.</p>
                         </div>
                     )
                 }
-                <ul className="ui-blog-listing__list">
+                <ul className="ui-article-listing__list">
                     {blogList.map((blog: any, index: number) => (
-                        <li key={index} className="ui-blog-listing__item">
+                        <li key={index} className="ui-article-listing__item"  data-stagger-motion-index={1 + index} data-stagger-motion-type="sm">
                             <ArticleCard
                                 title={blog.title}
-                                href={`/blogs/${blog.slug}`}
-                                label={`${formateDate(blog.createdAt)} • ${blog.publisher}`}
-                                image={blog.desktopimage?.url ?? ""}
+                                href={blog.link}
+                                label={blog.label}
+                                hasImage={!!blog.image}
+                                image={blog.image}
+                                isExternal={blog.isExternal}
                             />
                         </li>
                     ))}
                 </ul>
                 {loading &&
-                    <div className="ui-blog-listing__loading">
+                    <div className="ui-article-listing__loading">
                         <Loader type="dots" />
                     </div>
                 }
                 <div ref={loaderRef} style={{ height: "1px" }} />
             </div>
-        </section>
+        </Stagger>
     )
 }
 
-export default BlogListing
+export default ArticleListing

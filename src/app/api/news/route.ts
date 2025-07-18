@@ -2,8 +2,6 @@ import { fetchData } from "@/utils/fetchData";
 import { formateDate } from "@/utils/formateDate";
 import { sendResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
-import { title } from "process";
-import { types } from "util";
 
 
 interface BlogItem {
@@ -19,42 +17,41 @@ export async function GET(req: NextRequest) {
     const limit = parseInt(query.get("limit") || "10", 10);
 
     try {
-        const data = await fetchData("blog.json");
+        const data = await fetchData("media.json");
+
 
         if (!data || !Array.isArray(data.data)) {
-            return sendResponse(404, "Blog data not found or invalid format");
+            return sendResponse(404, "Media data not found or invalid format");
         }
-        const blogs: BlogItem[] = data.data;
-        let filteredBlogs = type === "all" ? blogs : blogs.filter((blog) => blog.type.toLowerCase() === type);
-        const uniqueBlogTypes = Array.from(
-            new Set(blogs.map((blog) => blog.type.toLowerCase()))
-        );
+
+        console.log('Fetched Media Data:', data.data);
+        const medias: BlogItem[] = data.data;
 
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
-        const paginatedBlogs = filteredBlogs.slice(startIndex, endIndex).map((blog) => ({
+        const paginatedMedias = medias.slice(startIndex, endIndex).map((blog) => ({
             title: blog.title,
             label: `${formateDate(blog.publishedAt)} • ${blog.publisher}`,
-            isExternal: false,
-            link: `/blogs/${blog.slug}`,
-            image: blog.desktopimage?.url || "",
+            isExternal: true,
+            link: blog.link ?? "",
+            image: ""
         }));
 
+
         const meta = {
-            total: filteredBlogs.length,
+            total: medias.length,
             page,
             limit,
-            totalPages: Math.ceil(filteredBlogs.length / limit),
+            totalPages: Math.ceil(medias.length / limit),
         };
 
-        return sendResponse(200, "Blogs fetched successfully", {
-            medias: paginatedBlogs,
-            types: uniqueBlogTypes,
+        return sendResponse(200, "Medias fetched successfully", {
+            medias: paginatedMedias,
             meta,
         });
 
     } catch (error) {
-        console.error('Error fetching blog data:', error);
+        console.error('Error fetching Media data:', error);
         return sendResponse(500, "Failed to fetch data");
     }
 
