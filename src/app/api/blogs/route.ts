@@ -1,12 +1,12 @@
 import { fetchData } from "@/utils/fetchData";
 import { formateDate } from "@/utils/formateDate";
 import { sendResponse } from "@/utils/response";
-import { NextRequest } from "next/server"; 
+import { NextRequest } from "next/server";
 
 
 interface BlogItem {
     slug: string;
-    type: string; 
+    type: string;
     publishedAt: string;
     publisher: string;
     title: string;
@@ -28,10 +28,9 @@ export async function GET(req: NextRequest) {
             return sendResponse(404, "Blog data not found or invalid format");
         }
         const blogs: BlogItem[] = data.data;
-        const filteredBlogs = type === "all" ? blogs : blogs.filter((blog) => blog.type.toLowerCase() === type);
-        const uniqueBlogTypes = Array.from(
-            new Set(blogs.map((blog) => blog.type.toLowerCase()))
-        );
+        const sortedBlogs = blogs.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+        const filteredBlogs = type === "all" ? sortedBlogs : sortedBlogs.filter((blog) => blog.type.toLowerCase() === type.toLowerCase());
+        const uniqueBlogTypes = Array.from(new Set(blogs.map((blog) => blog.type.toLowerCase())));
 
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;

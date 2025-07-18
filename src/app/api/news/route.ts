@@ -26,10 +26,11 @@ export async function GET(req: NextRequest) {
 
         console.log('Fetched Media Data:', data.data);
         const medias: BlogItem[] = data.data;
+        const sortedMedias = medias.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
-        const paginatedMedias = medias.slice(startIndex, endIndex).map((blog) => ({
+        const paginatedMedias = sortedMedias.slice(startIndex, endIndex).map((blog) => ({
             title: blog.title,
             label: `${formateDate(blog.publishedAt)} • ${blog.publisher}`,
             isExternal: true,
@@ -39,10 +40,10 @@ export async function GET(req: NextRequest) {
 
 
         const meta = {
-            total: medias.length,
+            total: sortedMedias.length,
             page,
             limit,
-            totalPages: Math.ceil(medias.length / limit),
+            totalPages: Math.ceil(sortedMedias.length / limit),
         };
 
         return sendResponse(200, "Medias fetched successfully", {

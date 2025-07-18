@@ -40,20 +40,19 @@ export async function generateMetadata(context: { params: { slug: string } }) {
 
 const page = async (context: { params: { slug: string } }) => {
   const { slug } = context.params;
-  const pageData = await callApi(`blogs/${slug}`);
+  const fetchedData = await callApi(`blogs/${slug}`);
 
-  const blogData = pageData.data;
+  const { pageData, relatedBlogs } = fetchedData.data;
 
-  if (!blogData) {
+  if (!pageData) {
     notFound();
   }
 
-  const related = await callApi("blogs");
-  const { medias } = related.data; 
+  const related = await callApi("blogs"); 
   return (
-    <> 
-      <ArticleDetails image={blogData.desktopimage.url} title={blogData.title} content={blogData.details} description={blogData.shortDesc} label={blogData.publisher} />
-      <RealatedArticle title='Related Articles' data={medias ?? []} />
+    <>
+      <ArticleDetails image={pageData.desktopimage.url} title={pageData.title} content={pageData.details} description={pageData.shortDesc} label={pageData.publisher} />
+      <RealatedArticle title='Related Articles' data={relatedBlogs ?? []} />
     </>
   )
 }

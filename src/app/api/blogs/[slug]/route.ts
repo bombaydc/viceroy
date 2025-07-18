@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 
 interface BlogItem {
     slug: string;
-    type: string; 
+    type: string;
     publishedAt: string;
     publisher: string;
     title: string;
@@ -31,10 +31,16 @@ export async function GET(_: NextRequest, context: { params: { slug: string } })
         const blogs: BlogItem[] = data.data;
         const matchedBlogs = blogs.filter(blog => blog.slug.toLowerCase() === slug);
 
+        const relatedBlogs = blogs.filter(blog => blog.type.toLowerCase() === matchedBlogs[0].type.toLowerCase() && blog.slug !== matchedBlogs[0].slug);
+
+
         if (matchedBlogs.length === 0) {
             return sendResponse(404, `No blog found for slug: ${slug}`);
         }
-        return sendResponse(200, "Blogs fetched by slug", matchedBlogs[0]);
+        return sendResponse(200, "Blogs fetched by slug", {
+            pageData: matchedBlogs[0],
+            relatedBlogs: relatedBlogs.slice(0, 2)
+        });
 
 
     } catch (error) {
