@@ -10,7 +10,7 @@ import Copy from '@/components/core/share/icons/copy.svg';
 import Share from '@/components/core/share/icons/share.svg';
 import './index.scss';
 
-const ShareButton = ({ text = 'Share', id = "share-option", href = '', title = '', description = '' }) => {
+const ShareButton = ({ text = 'Share', id = "share-option", href = '', title = '', description = '' ,...props}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [position, setPosition] = useState<string>("-bottom -right");
     const [copyStatus, setCopyStatus] = useState("Copy Link");
@@ -156,6 +156,7 @@ const ShareButton = ({ text = 'Share', id = "share-option", href = '', title = '
                 className="core-btn"
                 text={text}
                 rightIcon={<Share />}
+                {...props}
             />
 
             <div

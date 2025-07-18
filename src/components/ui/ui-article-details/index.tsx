@@ -12,13 +12,13 @@ const ArticleDetails = ({ title = '', description = '', content = '', label = ''
                     {label && <p className='ui-article-details__label' data-stagger-motion-index={index++} data-stagger-motion-type="sm">{label}</p>}
                     <h1 className={`ui-article-details__title`} data-stagger-motion-index={index++} data-stagger-motion-type="sm">{title}</h1>
                     <p className={`ui-article-details__description`} data-stagger-motion-index={index++} data-stagger-motion-type="sm">{description}</p>
-                    <ShareButton id="share-option1" title={title} description={description} />
+                    <ShareButton id="share-option1" title={title} description={description}  data-stagger-motion-index={index++} data-stagger-motion-type="sm"/>
                 </div>
-                <div className="ui-article-details__wrapper" data-stagger-motion-index={index++} data-stagger-motion-type="sm">
+                <div className="ui-article-details__wrapper" data-stagger-motion-index={index++} data-stagger-motion-type="md">
                     <Image src={image} width={795} height={529} className="ui-article-details__banner" alt={title} priority />
                     {content ? <RichTextContent content={content} /> : ''}
                 </div>
-                <ShareButton id="share-option2" title={title} description={description} />
+                <ShareButton id="share-option2" title={title} description={description} data-stagger-motion-index={index++} data-stagger-motion-type="sm"/>
 
             </div>
         </section>
