@@ -1,9 +1,7 @@
 import { fetchData } from "@/utils/fetchData";
 import { formateDate } from "@/utils/formateDate";
 import { sendResponse } from "@/utils/response";
-import { NextRequest } from "next/server";
-import { title } from "process";
-import { types } from "util";
+import { NextRequest } from "next/server"; 
 
 
 interface BlogItem {

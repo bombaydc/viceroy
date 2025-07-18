@@ -93,7 +93,7 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
     }, [type]);
 
     return (
-        <Stagger as={"section"} className={cn("ui-article-listing", className)}>
+        <section data-stagger-motion-observer className={cn("ui-article-listing", className)}>
             <div data-stagger-motion-index={1} data-stagger-motion-type="sm" >
                 <FilterTab activeValue={type} options={options} />
             </div>
@@ -126,7 +126,7 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
                 }
                 <div ref={loaderRef} style={{ height: "1px" }} />
             </div>
-        </Stagger>
+        </section>
     )
 }
 

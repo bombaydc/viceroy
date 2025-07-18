@@ -1,5 +1,5 @@
-import { fetchData } from "@/utils/fetchData";
-import { sendResponse } from "@/utils/response";
+import { fetchData } from "../@/utils/fetchData";
+import { sendResponse } from "../@/utils/response";
 import { NextRequest } from "next/server";
 
 

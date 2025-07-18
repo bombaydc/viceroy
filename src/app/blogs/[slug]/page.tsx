@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   const { data } = await fetchData("blog.json");
   if (!data || !Array.isArray(data.data)) {
     return [];
-  } 
+  }
   return data.map(({ slug }: { slug: string }) => ({
     slug,
   }))
@@ -21,18 +21,18 @@ export async function generateStaticParams() {
 
 
 export async function generateMetadata(context: { params: { slug: string } }) {
-  const { slug } = context.params; 
-  const pageData = await callApi(`blogs/${slug}`);  
-  
-	const metaData = {
-		metaTitle: pageData.data?.title ?? "Blog Article",
-		metaDescription: pageData.data?.shortDesc ?? "Read this case studies.",
-	};
+  const { slug } = context.params;
+  const pageData = await callApi(`blogs/${slug}`);
 
-	return createMetadata({ 
+  const metaData = {
+    metaTitle: pageData.data?.title ?? "Blog Article",
+    metaDescription: pageData.data?.shortDesc ?? "Read this case studies.",
+  };
+
+  return createMetadata({
     ...metaData,
-		canonical: `/${slug}`
-	});
+    canonical: `/${slug}`
+  });
 }
 
 
@@ -48,7 +48,8 @@ const page = async (context: { params: { slug: string } }) => {
     notFound();
   }
 
-
+  const related = await callApi("blogs");
+  const { medias } = related.data;
   const items = [
     {
       title: 'Home',
@@ -68,7 +69,7 @@ const page = async (context: { params: { slug: string } }) => {
     <>
       <Breadcrumbs items={items} />
       <ArticleDetails title={blogData.title} content={blogData.details} description={blogData.shortDesc} label={blogData.publisher} />
-      <RealatedArticle title='Related Articles' data={blogData.relatedBlogs ?? []} />
+      <RealatedArticle title='Related Articles' data={medias ?? []} />
     </>
   )
 }

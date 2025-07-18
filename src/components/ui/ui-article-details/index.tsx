@@ -1,10 +1,11 @@
 import RichTextContent from "@/components/ui/ui-rich-text-content";
 import './index.scss';
 import ShareButton from "@/components/core/share";
+import Stagger from "@/components/motion/stagger";
 
 const ArticleDetails = ({ title = '', description = '', content = '', label = '' }) => {
     return (
-        <div className='ui-article-details' >
+        <Stagger as={"section"} className='ui-article-details' >
             <div className='ui-article-details__container'>
                 <div className="ui-article-details__content">
                     {label && <p className='ui-article-details__label'>{label}</p>}
@@ -14,8 +15,9 @@ const ArticleDetails = ({ title = '', description = '', content = '', label = ''
                 </div>
                 {content ? <RichTextContent content={content} /> : ''}
                 <ShareButton id="share-option2" title={title} description={description} />
+                
             </div>
-        </div>
+        </Stagger>
     )
 }
 export default ArticleDetails

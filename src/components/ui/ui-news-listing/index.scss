@@ -1,7 +1,6 @@
 @use '@scss-abstracts' as *;
 
-.ui-news-listing {
-  padding-block-end: var(--space-7xl);
+.ui-news-listing { 
   @include media('<md') {
     padding-block-end: var(--space-3xl);
   }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
 import { Providers } from "@/providers";
 import { AlertRenderer } from "@/components/core/alert";
-import { createMetadata } from "@/utils/meta";
+import { createMetadata } from "../utils/meta";
 import "@/styles/main.scss";
 import "@/styles/layout/index.scss";
 import Script from "next/script";

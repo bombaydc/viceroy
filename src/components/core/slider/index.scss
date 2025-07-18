@@ -35,6 +35,20 @@ $core-card-slider-vars: (
   );
   //card list
   .core-card-slider__card-list {
+    display: flex;
+
+    //size - LIKELY TO CHANGE
+    width: calc(100% + 2 * var(--page-content-padding));
+
+    //spacing - LIKELY TO CHANGE
+    margin-inline-start: calc(-1 * var(--page-content-padding));
+    padding-inline: var(--gap-compensated-page-content-padding);
+
+    @include media('>=maxwidth') {
+      //spacing - LIKELY TO CHANGE
+      --page-content-padding: 40px;
+      --gap-compensated-page-content-padding: calc(40px - 16px / 2);
+    }
     //visual - UNLIKELY TO CHANGE
     scroll-snap-type: x mandatory;
     scroll-padding: var(--gap-compensated-page-content-padding);

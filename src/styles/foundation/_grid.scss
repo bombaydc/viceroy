@@ -22,6 +22,7 @@
 :root {
   --page-content-width: var(--w-viewport);
   --page-content-padding: var(--space-l);
+  --section-space: var(--space-4xl);
   --grid-column-gap: var(--space-3xs);
   --grid-row-gap: var(--space-m);
   /* container padding adjusted by half the gutter width */
@@ -33,10 +34,16 @@
   );
   @include define-colspans();
 }
+@include media('<md') {
+  :root {
+    --section-space: var(--space-3xl);
+  }
+}
 @include media('<sm') {
   :root {
     --total-grid-columns: 4;
     --page-content-padding: var(--space-2xs);
+    --section-space: var(--space-3xl);
     --grid-column-gap: var(--space-3xs);
     --grid-row-gap: var(--space-m);
   }

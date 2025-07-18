@@ -6,14 +6,13 @@
     width: 100%;
     max-width: var(--inner-colspan8);
     margin: 0 auto;
-    padding-block-start: var(--space-2xl);
-    padding-block-end: var(--space-3xl);
+    padding-block-start: var(--space-2xl); 
     color: var(--text-black);
 
     @include media('<=md') {
       width: 100%;
       max-width: 100%;
-      padding-block: var(--space-2xl);
+      padding-block-start: var(--space-2xl);
     }
   }
 

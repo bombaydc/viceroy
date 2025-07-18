@@ -1,37 +1,45 @@
-import ArticleCard from "@/components/ui/ui-article-card"; 
-
+import ArticleCard from "@/components/ui/ui-article-card";
+import './index.scss';
+import { Slider, SliderContent, SliderIndicator, SliderItem } from "@/components/core/slider";
+import Stagger from "@/components/motion/stagger";
 interface RealatedArticleProps {
     title: string;
-    data: any[];  
+    data: any[];
 }
 
 
 const RealatedArticle: React.FC<RealatedArticleProps> = ({ title, data }) => {
     if (!data || data.length === 0) {
-        return null; 
+        return null;
     }
     return (
-        <section className="ui-related-article">
-            <div className="ui-related-article__container">
-
-                <h4 className="ui-related-article__title">
+        <Stagger as={"section"} className="ui-related-article">
+            <div className="ui-related-article__container"> 
+                <h4 className="ui-related-article__title" data-stagger-motion-index={1} data-stagger-motion-type="md">
                     {title}
-                </h4>
-                <ul className="ui-related-article__list">
-                    {
-                        data.map((blog: any, index: number) => (
-                            <li key={index} className="ui-article-listing__item">
-                                <ArticleCard
-                                    title={blog.title}
-                                    href={`/blogs/${blog.slug}`}
-                                    label={`${blog.publisher}`}
-                                    image={blog.desktopimage?.url ?? ""}
-                                />
-                            </li>
-                        ))}
-                </ul>
+                </h4> 
+                <div data-stagger-motion-index={2} data-stagger-motion-type="md">
+                    <Slider className=" ui-related-article__list">
+                        <SliderContent>
+                            {
+                                data.map((blog: any, index: number) => (
+                                    <SliderItem key={index} className="ui-related-article__item">
+                                        <ArticleCard
+                                            title={blog.title}
+                                            href={blog.link}
+                                            isExternal={blog.isExternal}
+                                            label={blog.label}
+                                            image={blog.desktopimage?.url ?? ""}
+                                        />
+                                    </SliderItem>
+                                ))}
+                        </SliderContent>
+                        <SliderIndicator />
+
+                    </Slider>
+                </div>
             </div>
-        </section>
+        </Stagger>
     )
 }
 

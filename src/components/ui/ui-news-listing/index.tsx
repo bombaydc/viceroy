@@ -5,8 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { callApi } from "@/utils/apiClient";
 import Loader from "@/components/core/loader";
 import { cn } from "@/utils/cn";
-import "./index.scss";
-import Stagger from "@/components/motion/stagger";
+import "./index.scss"; 
 
 interface NewsListingProps {
     options?: { label: string; value: string }[];
@@ -72,7 +71,7 @@ const NewsListing: React.FC<NewsListingProps> = ({ options = [], medias = [], me
     };
 
     return (
-        <Stagger as={"section"} className={cn("ui-news-listing", className)}>
+        <section data-stagger-motion-observer  className={cn("ui-news-listing", className)}>
             <div className="ui-news-listing__container">
                 {
                     blogList.length === 0 && !loading && (
@@ -83,7 +82,7 @@ const NewsListing: React.FC<NewsListingProps> = ({ options = [], medias = [], me
                 }
                 <ul className="ui-news-listing__list">
                     {blogList.map((blog: any, index: number) => (
-                        <li key={index} className="ui-news-listing__item">
+                        <li key={index} className="ui-news-listing__item"  data-stagger-motion-index={1 + index} data-stagger-motion-type="md">
                             <ArticleCard
                                 title={blog.title}
                                 href={blog.link}
@@ -91,7 +90,7 @@ const NewsListing: React.FC<NewsListingProps> = ({ options = [], medias = [], me
                                 hasImage={false}
                                 image={blog.image}
                                 isExternal={blog.isExternal}
-                                 data-stagger-motion-index={1 + index} data-stagger-motion-type="md"
+                                
                             />
                         </li>
                     ))}
@@ -103,7 +102,7 @@ const NewsListing: React.FC<NewsListingProps> = ({ options = [], medias = [], me
                 }
                 <div ref={loaderRef} style={{ height: "1px" }} />
             </div>
-        </Stagger>
+        </section>
     )
 }
 
