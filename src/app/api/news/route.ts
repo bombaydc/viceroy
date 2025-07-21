@@ -3,16 +3,8 @@ import { formateDate } from "@/utils/formateDate";
 import { sendResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
 
-
-interface BlogItem {
-    slug: string;
-    type: string;
-    [key: string]: any;
-}
-
 export async function GET(req: NextRequest) {
-    const query = req.nextUrl.searchParams;
-    const type = query.get("type") ?? 'all';
+    const query = req.nextUrl.searchParams; 
     const page = parseInt(query.get("page") || "1", 10);
     const limit = parseInt(query.get("limit") || "10", 10);
 
@@ -25,7 +17,7 @@ export async function GET(req: NextRequest) {
         }
 
         console.log('Fetched Media Data:', data.data);
-        const medias: BlogItem[] = data.data;
+        const medias: MediaItem[] = data.data;
         const sortedMedias = medias.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
         const startIndex = (page - 1) * limit;

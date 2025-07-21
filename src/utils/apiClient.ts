@@ -1,14 +1,14 @@
 export type ApiMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
-interface ApiOptions {
+interface ApiOptions<TBody = unknown> {
     method?: ApiMethod;
     headers?: Record<string, string>;
-    params?: Record<string, any>;
-    body?: any;
+    params?: Record<string, string | number | boolean | null | undefined>;
+    body?: TBody;
     baseUrl?: string;
 }
 
-const buildQueryString = (params?: Record<string, any>): string => {
+const buildQueryString = (params?: Record<string, string | number | boolean | null | undefined>): string => {
     if (!params) return '';
     const query = new URLSearchParams();
     Object.entries(params).forEach(([key, value]) => {
@@ -20,9 +20,9 @@ const buildQueryString = (params?: Record<string, any>): string => {
 };
 
 
-export async function callApi<T = any>(
+export async function callApi<T = unknown, TBody = unknown>(
     endpoint: string,
-    options: ApiOptions = {}
+    options: ApiOptions<TBody> = {}
 ): Promise<T> {
     const {
         method = 'GET',
@@ -63,8 +63,12 @@ export async function callApi<T = any>(
 
         const data: T = await response.json();
         return data;
-    } catch (err: any) {
-        console.error('API Request Failed:', err.message);
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+            console.error('API Request Failed:', err.message);
+        } else {
+            console.error('API Request Failed:', err);
+        }
         throw err;
     }
 }

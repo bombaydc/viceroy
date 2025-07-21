@@ -56,21 +56,22 @@ const Slider = ({
         [cardSliderPer]
     );
 
-    const next = () => {
+    const next = useCallback(() => {
         const maxIndex = Math.ceil(totalSlides / cardSliderPer) - 1;
         if (currentIndex < maxIndex) {
             scrollToIndex(currentIndex + 1);
         }
-    };
+    }, [totalSlides, cardSliderPer, scrollToIndex, currentIndex]);
 
-    const prev = () => {
+    const prev = useCallback(() => {
         if (!sliderRef.current) return;
         const scrollLeft = sliderRef.current.scrollLeft;
         if (currentIndex > 0 || scrollLeft > 0) {
             const newIndex = Math.max(currentIndex - 1, 0);
             scrollToIndex(newIndex);
         }
-    };
+    }, [ sliderRef, scrollToIndex, currentIndex]);
+
     const contextValue = useMemo(() => ({ sliderRef, currentIndex, setCurrentIndex, scrollToIndex, next, prev, total: totalSlides, cardSliderPer }), [
         sliderRef,
         currentIndex,
@@ -103,7 +104,7 @@ const SliderContent = ({ children, className = '' }: { children: ReactNode, clas
         <ul
             ref={sliderRef}
             className={cn("core-card-slider__card-list", className)}
-            data-card-per={cardSliderPer} 
+            data-card-per={cardSliderPer}
             aria-label="Slider content"
             onScroll={handleScroll}
         >

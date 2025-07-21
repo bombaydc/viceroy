@@ -1,5 +1,4 @@
-import ArticleListing from "@/components/ui/ui-article-listing";
-import NewsListing from "@/components/ui/ui-news-listing";
+import ArticleListing from "@/components/ui/ui-article-listing"; 
 import SectionHead from "@/components/ui/ui-section-head";
 import { callApi } from "@/utils/apiClient";
 import { fetchData } from "@/utils/fetchData";

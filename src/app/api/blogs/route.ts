@@ -2,19 +2,7 @@ import { fetchData } from "@/utils/fetchData";
 import { formateDate } from "@/utils/formateDate";
 import { sendResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
-
-
-interface BlogItem {
-    slug: string;
-    type: string;
-    publishedAt: string;
-    publisher: string;
-    title: string;
-    desktopimage: {
-        url: string;
-    };
-}
-
+ 
 export async function GET(req: NextRequest) {
     const query = req.nextUrl.searchParams;
     const type = query.get("type") ?? 'all';

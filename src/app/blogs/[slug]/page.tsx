@@ -1,4 +1,3 @@
-import Breadcrumbs from '@/components/core/breadcrumbs'
 import ArticleDetails from '@/components/ui/ui-article-details';
 import RealatedArticle from '@/components/ui/ui-related-article';
 import { callApi } from '@/utils/apiClient';
@@ -46,9 +45,8 @@ const page = async (context: { params: { slug: string } }) => {
 
   if (!pageData) {
     notFound();
-  }
-
-  const related = await callApi("blogs"); 
+  } 
+  
   return (
     <>
       <ArticleDetails image={pageData.desktopimage.url} title={pageData.title} content={pageData.details} description={pageData.shortDesc} label={pageData.publisher} />

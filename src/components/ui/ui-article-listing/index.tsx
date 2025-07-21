@@ -2,16 +2,16 @@
 
 import ArticleCard from "@/components/ui/ui-article-card";
 import FilterTab from "@/components/ui/ui-filter-tab";
-import "./index.scss"; 
+import "./index.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { callApi } from "@/utils/apiClient";
 import Loader from "@/components/core/loader";
-import { cn } from "@/utils/cn"; 
+import { cn } from "@/utils/cn";
 
 interface ArticleListingProps {
     options?: { label: string; value: string }[];
     className?: string;
-    medias?: any[];
+    medias?: BlogItem[];
     type?: string;
     endpoint?: string;
     meta?: {
@@ -23,13 +23,13 @@ interface ArticleListingProps {
 }
 
 const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = [], meta, type = "all", className = "", endpoint = "blogs" }) => {
-    const [blogList, setBlogList] = useState<any[]>(medias);
+    const [blogList, setBlogList] = useState<BlogItem[]>(medias);
     const [page, setPage] = useState(meta?.page || 1);
     const [totalPages, setTotalPages] = useState(meta?.totalPages || 1);
     const [loading, setLoading] = useState(false);
 
     const loaderRef = useRef<HTMLDivElement>(null);
-    const listingRef = useRef<HTMLElement>(null); 
+    const listingRef = useRef<HTMLElement>(null);
 
     const loadMore = useCallback(async () => {
         if (loading || page >= totalPages) return;
@@ -57,7 +57,7 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
     }, [endpoint, type, loading, page, totalPages]);
 
     useEffect(() => {
-        if (loading || page >= totalPages) return;
+        if (loading || page >= totalPages || !loaderRef.current) return;
 
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
@@ -71,25 +71,26 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
             observer.observe(loaderRef.current);
         }
 
+        const currentLoader = loaderRef.current;
         return () => {
-            if (loaderRef.current) {
-                observer.unobserve(loaderRef.current);
+            if (currentLoader) {
+                observer.unobserve(currentLoader);
             }
         };
     }, [loaderRef, page, loading, totalPages, loadMore]);
 
-    const handleFliter = () => {
+    const handleFliter = useCallback(() => {
         setTimeout(() => {
             if (listingRef.current?.staggerInstance) {
                 listingRef.current?.staggerInstance.reInitStaggerElements();
                 listingRef.current?.staggerInstance.retriggerAnimation();
             }
         }, 50);
-    };
+    }, [listingRef]);
 
     useEffect(() => {
         handleFliter();
-    }, [type]);
+    }, [type,handleFliter]);
 
     useEffect(() => {
         setBlogList(medias);
@@ -113,7 +114,7 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
                     )
                 }
                 <ul className="ui-article-listing__list">
-                    {blogList.map((blog: any, index: number) => (
+                    {blogList.map((blog: BlogItem, index: number) => (
                         <li key={index} className="ui-article-listing__item" data-stagger-motion-retrigger-target data-stagger-motion-index={1 + index} data-stagger-motion-type="sm">
                             <ArticleCard
                                 title={blog.title}

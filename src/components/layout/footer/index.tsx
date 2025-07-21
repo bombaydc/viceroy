@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { fetchData } from '@/utils/fetchData';
 
 const Footer = async () => {
-    const data = await fetchData('common.json'); 
-    
+    const data = await fetchData('common.json');
+
     return (
         <footer className="ui-footer">
             <div className="ui-footer__container">
@@ -46,7 +46,7 @@ const Footer = async () => {
                         data.data.legalCard && data.data.legalCard.length > 0 &&
                         <ul className='ui-footer__links'>
                             {
-                                data.data.legalCard.map((item: any, index: number) =>
+                                data.data.legalCard.map((item: MenuLink, index: number) =>
                                     item.link && item.title &&
                                     <li className='ui-footer__link-item' key={index} >
                                         <Link href={item.link} className='ui-footer__link' target={item.target || '_self'}>{item.title}</Link>
@@ -59,10 +59,10 @@ const Footer = async () => {
                         data.data.social && data.data.social.length > 0 &&
                         <ul className='ui-footer__social-links'>
                             {
-                                data.data.social.map((item: any, index: number) =>
+                                data.data.social.map((item: SocialItem, index: number) =>
                                     item.buttonIcon && item.buttonLink &&
-                                    <li className='ui-footer__link-item'>
-                                        <Link key={index} href={item.buttonLink} className='ui-footer__link' target={'_blank'}>
+                                    <li className='ui-footer__link-item' key={`social-link-${index}`}>
+                                        <Link  href={item.buttonLink} className='ui-footer__link' target={'_blank'}>
                                             <Image src={item.buttonIcon?.url ?? ''} alt={item.buttonText} width={24} height={24} />
                                         </Link>
                                     </li>

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { sqlInjectionMiddleware } from './middleware/sqlInjectionMiddleware';
-import { imageValidationMiddleware } from './middleware/imageValidationMiddleware';
-import { cspMiddleware } from './middleware/cspMiddleware';
+import { sqlInjectionMiddleware } from '@/middleware/sqlInjectionMiddleware';
+import { imageValidationMiddleware } from '@/middleware/imageValidationMiddleware';
+import { cspMiddleware } from '@/middleware/cspMiddleware';
 
 const runMiddlewares = (
   req: NextRequest,

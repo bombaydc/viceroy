@@ -1,5 +1,5 @@
 import RichTextContent from "@/components/ui/ui-rich-text-content";
-import ShareButton from "@/components/core/share";
+import ShareButton from "@/components/core/share"; 
 import Image from "@/components/core/image";
 import './index.scss';
 
@@ -15,7 +15,10 @@ const ArticleDetails = ({ title = '', description = '', content = '', label = ''
                     <ShareButton id="share-option1" title={title} description={description}  data-stagger-motion-index={index++} data-stagger-motion-type="sm"/>
                 </div>
                 <div className="ui-article-details__wrapper" data-stagger-motion-index={index++} data-stagger-motion-type="md">
-                    {/* <Image src={image} width={795} height={529} className="ui-article-details__banner" alt={title} priority /> */}
+                    {
+                        image && 
+                        <Image src={image} width={795} height={529} className="ui-article-details__banner" alt={title} priority />
+                    }
                     {content ? <RichTextContent content={content} /> : ''}
                 </div>
                 <ShareButton id="share-option2" title={title} description={description} data-stagger-motion-index={index++} data-stagger-motion-type="sm"/>

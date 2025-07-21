@@ -3,7 +3,7 @@ import './index.scss';
 import { Slider, SliderContent, SliderIndicator, SliderItem } from "@/components/core/slider"; 
 interface RealatedArticleProps {
     title: string;
-    data: any[];
+    data: BlogItem[];
 }
 
 
@@ -21,7 +21,7 @@ const RealatedArticle: React.FC<RealatedArticleProps> = ({ title, data }) => {
                     <Slider className=" ui-related-article__list">
                         <SliderContent>
                             {
-                                data.map((blog: any, index: number) => (
+                                data.map((blog, index: number) => (
                                     <SliderItem key={index} className="ui-related-article__item">
                                         <ArticleCard
                                             title={blog.title}
