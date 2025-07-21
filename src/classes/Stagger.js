@@ -85,6 +85,7 @@ export default class Stagger {
 	animateIn() {
 		if (this.isAnimatedIn) return;
 		this.isAnimatedIn = true;
+
 		for (const staggerElement of this.staggerElements) {
 			if (this.persist && this.container.classList.contains("has-staggered-in")) {
 				if (!staggerElement.hasAttribute("data-stagger-motion-retrigger-target")) continue;
@@ -140,6 +141,7 @@ export default class Stagger {
 				return;
 			}
 		}
+
 		this.isAnimatedIn = false;
 		for (const staggerElement of this.staggerElements) {
 			if (this.persist && this.container.classList.contains("has-staggered-in")) {
@@ -157,17 +159,46 @@ export default class Stagger {
 			});
 		}
 	}
+	retriggerAnimationToNewElement() {
+		const allStaggerElements = [...this.container.querySelectorAll("[data-stagger-motion-index]")].filter((element) => {
+			return element.closest("[data-stagger-motion-observer]") === this.container;
+		}); 
+		const newStaggerElements = allStaggerElements.filter((element) => !this.staggerElements.includes(element));
+		// Update the original staggerElements with the new ones
+		if (newStaggerElements.length === 0) return;
+
+		this.staggerElements = newStaggerElements;
+
+		this.isAnimatedIn = false;
+		this.animateOut();
+		this.animateIn();
+	}
+
+	reInitStaggerElements() {
+		this.staggerElements = [...this.container.querySelectorAll("[data-stagger-motion-index]")].filter((element) => {
+			//Check if the closest parent with 'data-motion-observer=stagger' is the container itself
+			return element.closest("[data-stagger-motion-observer]") === this.container;
+		});  
+	}
+
 	retriggerAnimation() {
 		this.isAnimatedIn = false;
 		this.animateOut();
 		this.animateIn();
 	}
+
+
 	addEventListeners() {
 		const motionRetriggers = [...this.container.querySelectorAll("[data-stagger-motion-retrigger-btn]")].filter((element) => {
 			return element.closest("[data-stagger-motion-observer]") === this.container;
 		});
 		for (const motionRetrigger of motionRetriggers) {
 			motionRetrigger.addEventListener("click", this.retriggerAnimation.bind(this));
+		}
+
+		const motionRetriggersToNewEle = this.container.querySelectorAll("[data-stagger-motion-retrigger-new-element]");
+		for (const motionRetrigger of motionRetriggersToNewEle) {
+			motionRetrigger.addEventListener("click", this.retriggerAnimationToNewElement.bind(this));
 		}
 	}
 }

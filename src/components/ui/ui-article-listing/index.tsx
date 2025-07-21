@@ -2,13 +2,11 @@
 
 import ArticleCard from "@/components/ui/ui-article-card";
 import FilterTab from "@/components/ui/ui-filter-tab";
-import "./index.scss";
-import { formateDate } from "@/utils/formateDate";
+import "./index.scss"; 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { callApi } from "@/utils/apiClient";
 import Loader from "@/components/core/loader";
-import { cn } from "@/utils/cn";
-import Stagger from "@/components/motion/stagger";
+import { cn } from "@/utils/cn"; 
 
 interface ArticleListingProps {
     options?: { label: string; value: string }[];
@@ -31,6 +29,32 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
     const [loading, setLoading] = useState(false);
 
     const loaderRef = useRef<HTMLDivElement>(null);
+    const listingRef = useRef<HTMLElement>(null); 
+
+    const loadMore = useCallback(async () => {
+        if (loading || page >= totalPages) return;
+        setLoading(true);
+        try {
+            const nextPage = page + 1;
+            const res = await callApi(endpoint, {
+                params: { page: nextPage, type },
+            });
+            const newBlogs = res.data.medias;
+            setBlogList(prev => [...prev, ...newBlogs]);
+            setPage(nextPage);
+            setTotalPages(res.data.meta.totalPages);
+
+            setTimeout(() => {
+                if (listingRef.current?.staggerInstance) {
+                    listingRef.current?.staggerInstance.retriggerAnimationToNewElement();
+                }
+            }, 50);
+        } catch (error) {
+            console.error("Failed to load more blogs:", error);
+        } finally {
+            setLoading(false);
+        }
+    }, [endpoint, type, loading, page, totalPages]);
 
     useEffect(() => {
         if (loading || page >= totalPages) return;
@@ -52,48 +76,31 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
                 observer.unobserve(loaderRef.current);
             }
         };
-    }, [loaderRef, page, loading, totalPages]);
+    }, [loaderRef, page, loading, totalPages, loadMore]);
 
-    const loadMore = async () => {
-        if (loading || page >= totalPages) return;
-        setLoading(true);
-        try {
-            const nextPage = page + 1;
-            const res = await callApi(endpoint, {
-                params: { page: nextPage, type },
-            });
-            const newBlogs = res.data.medias;
-            setBlogList(prev => [...prev, ...newBlogs]);
-            setPage(nextPage);
-            setTotalPages(res.data.meta.totalPages);
-        } catch (error) {
-            console.error("Failed to load more blogs:", error);
-        } finally {
-            setLoading(false);
-        }
+    const handleFliter = () => {
+        setTimeout(() => {
+            if (listingRef.current?.staggerInstance) {
+                listingRef.current?.staggerInstance.reInitStaggerElements();
+                listingRef.current?.staggerInstance.retriggerAnimation();
+            }
+        }, 50);
     };
 
-    const fetchInitialBlogs = useCallback(async () => {
-        setLoading(true);
-
-        try {
-            const res = await callApi(endpoint, { params: { page: 1, type } });
-            setBlogList(res.data.medias);
-            setPage(1);
-            setTotalPages(res.data.meta.totalPages);
-        } catch (err) {
-            console.error("Error fetching initial blogs:", err);
-        } finally {
-            setLoading(false);
-        }
-    }, [type, endpoint]);
+    useEffect(() => {
+        handleFliter();
+    }, [type]);
 
     useEffect(() => {
-        fetchInitialBlogs();
-    }, [type, endpoint]);
+        setBlogList(medias);
+        if (meta) {
+            setPage(meta.page || 1);
+            setTotalPages(meta.totalPages || 1);
+        }
+    }, [medias, meta]);
 
     return (
-        <section data-stagger-motion-observer className={cn("ui-article-listing", className)}>
+        <section data-stagger-motion-observer ref={listingRef} className={cn("ui-article-listing", className)}>
             <div data-stagger-motion-index={1} data-stagger-motion-type="sm" >
                 <FilterTab activeValue={type} options={options} />
             </div>
@@ -107,7 +114,7 @@ const ArticleListing: React.FC<ArticleListingProps> = ({ options = [], medias = 
                 }
                 <ul className="ui-article-listing__list">
                     {blogList.map((blog: any, index: number) => (
-                        <li key={index} className="ui-article-listing__item"  data-stagger-motion-index={1 + index} data-stagger-motion-type="sm">
+                        <li key={index} className="ui-article-listing__item" data-stagger-motion-retrigger-target data-stagger-motion-index={1 + index} data-stagger-motion-type="sm">
                             <ArticleCard
                                 title={blog.title}
                                 href={blog.link}

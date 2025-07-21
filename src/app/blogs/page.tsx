@@ -11,11 +11,17 @@ export async function generateMetadata() {
 }
 
 
+interface SearchParams {
+  type?: string;
+}
 
-const page = async (context: { searchParams: { type: string } }) => {
-  const { type } = context.searchParams;
+const page = async ({ searchParams }: { searchParams: Promise<SearchParams> }) => {
+  // const type = await searchParams?.type || "all";
+  const queryParamter = (await searchParams);
+  const type = queryParamter?.type || "all";
   const pageData = await fetchData("blog-landing.json");
   const blogData = await callApi("blogs", { params: { type } });
+
   const { medias, types, meta } = blogData.data;
 
   const options = [
@@ -25,6 +31,7 @@ const page = async (context: { searchParams: { type: string } }) => {
       value: `/blogs?type=${type}`
     }))
   ];
+
   return (
     <>
       <SectionHead label={pageData.data.blogLanding.preTitle} title={pageData.data.blogLanding.Title} description={pageData.data.blogLanding.Description} />

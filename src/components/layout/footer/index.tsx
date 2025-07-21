@@ -5,10 +5,8 @@ import Link from 'next/link';
 import { fetchData } from '@/utils/fetchData';
 
 const Footer = async () => {
-    const data = await fetchData('common.json');
-    console.log('Footer Data:', data.data.legalCard);
-
-
+    const data = await fetchData('common.json'); 
+    
     return (
         <footer className="ui-footer">
             <div className="ui-footer__container">

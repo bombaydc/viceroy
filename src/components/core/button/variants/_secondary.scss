@@ -2,7 +2,6 @@
 @use '@scss-motion-abstracts' as motion;
 @use 'sass:map';
 
-
 //root variables - CHANGEME
 $standard-secondary-btn-vars: (
   default: (
@@ -15,7 +14,7 @@ $standard-secondary-btn-vars: (
     TEXT-ICON-GAP: var(--space-macro),
     //visual (colors, backgrounds, borders, overflows)
     BORDER-DEFAULT-COLOR: var(--text-black),
-    BG-DEFAULT-COLOR: white,
+    BG-DEFAULT-COLOR: var(--text-add-on),
     BG-HOVER-COLOR: var(--text-black),
     BG-DISABLED-COLOR: #9ea1ad,
     //typography
@@ -25,7 +24,7 @@ $standard-secondary-btn-vars: (
   ),
   mobile: (
     //visual
-    BG-HOVER-COLOR: #2446ae,
+    BG-HOVER-COLOR: var(--text-black),
   ),
 );
 @mixin standard-secondary-btn-state($state) {
@@ -71,7 +70,7 @@ $standard-secondary-btn-vars: (
   padding-inline: var(--STANDARD-SECONDARY-BTN-PADDING-INLINE);
   gap: var(--STANDARD-SECONDARY-BTN-TEXT-ICON-GAP);
 
-  //visual (colors, backgrounds, borders, overflows) - CHANGEME 
+  //visual (colors, backgrounds, borders, overflows) - CHANGEME
   border: 1px solid var(--STANDARD-SECONDARY-BTN-BORDER-DEFAULT-COLOR);
   background-color: var(--STANDARD-SECONDARY-BTN-BG-DEFAULT-COLOR);
   color: var(--STANDARD-SECONDARY-BTN-TEXT-DEFAULT-COLOR);
@@ -86,7 +85,7 @@ $standard-secondary-btn-vars: (
   &.is-disabled {
     @include standard-secondary-btn-state(disabled);
   }
-//loader
+  //loader
   .core-dot-loader {
     --CORE-DOT-LOADER-DOT-COLOR: white;
     visibility: hidden;
